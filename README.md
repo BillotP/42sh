@@ -1,8 +1,14 @@
 # README #
 
 Hello world this is the official working repo for the 42 sh 
-project.
-this is a "simple git " repo but woth cool interface 
+project (working repo the official one will be filled when we
+got a working master here).
+
+Bitbucket is just a  "simple git " repo but with cool interface
+
+NOTE : j'ai avancé sur un parser de conf vous pouvez le tester avec
+un "make parser" et ./parser ressources/conf.42shrc
+Paul
 ### What is this repository for? ###
 
 * Quick summary

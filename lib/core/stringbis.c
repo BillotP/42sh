@@ -5,11 +5,24 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:35:17 2017 Bender_Jr
-** Last update Mon Apr 10 09:35:19 2017 Bender_Jr
+** Last update Fri Apr 14 18:37:18 2017 Bender_Jr
 */
 
 # include "base.h"
 # include "printf.h"
+
+ssize_t		tab_len(char  **bfr)
+{
+  ssize_t	i;
+
+  i = 0;
+  if (bfr[i])
+    {
+      while (bfr[i])
+	i++;
+    }
+  return (i);
+}
 
 void		*my_memmove(void *dest, const void *src, size_t n)
 {

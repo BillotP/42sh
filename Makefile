@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Mon Apr 10 09:38:35 2017 Bender_Jr
+## Last update Fri Apr 14 18:43:37 2017 Bender_Jr
 ##
 
 CC		= gcc
@@ -23,11 +23,12 @@ CFLAGS		+= -I./include/
 ##
 ## d-bug flags
 ##
-DFLAGS		+= -O0 -g3 -I./include/
+DFLAGS		+= -O0 -g3 -D DEBUG -I./include/
 
 LDFLAGS		+= -z relro -z now -pie
 
-NAME		= 42sh
+42SH		= 42sh
+PARSER		= parser
 
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
@@ -38,27 +39,45 @@ SRCS		= lib/core/base.c		\
 		lib/core/putnbr.c		\
 		lib/core/string.c		\
 		lib/core/stringbis.c		\
-		lib/core/strtowordtab.c		\
+		lib/core/strtowordtab.c
+
+SRC_SHELL	= $(SRCS)			\
 		src/main.c
 
+SRC_PARSER	= $(SRCS)			\
+		src/check.c			\
+		src/fill_tree.c			\
+		src/get_keywrd.c		\
+		src/node_ops.c			\
+		src/tree.c			\
+		src/tree_utils.c		\
+		src/parser.c
 
-OBJS		= $(SRCS:.c=.o)
+OBJ_S		= $(SRC_SHELL:.c=.o)
 
+OBJ_P		= $(SRC_PARSER:.c=.o)
 
-$(NAME):	$(OBJS)
-		$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
+$(PARSER):	$(OBJ_P)
+		$(CC) $(OBJ_P) -o $(PARSER)
 
-all:		$(NAME)
+$(SHELL):	$(OBJ_S)
+		$(CC) $(OBJ_S) -o $(42SH) $(LDFLAGS)
 
+all:		$(42SH)
 
-dbg:
-		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRCS) -o $(NAME)
+parser:		$(PARSER)
+
+dbgsh:
+		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_SHELL) -o dbg42
+
+dbgpars:
+		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_PARSER) -o dbgpars
 
 clean:
-		$(RM) $(OBJS)
+		$(RM) $(OBJ_S) $(OBJ_P)
 
 fclean:		clean
-		$(RM) $(NAME)
+		$(RM) $(42SH) $(PARSER)
 
 re:		fclean all
 

@@ -1,0 +1,15 @@
+######	# Dict file aka scripting symbols # #######
+           ##  ##############  ##
+## note: dict file support commentary with '#' symbol ##
+## ##### and must end with a !## symbol and 0 flag index ##
+while,1
+if,2
+##
+endif,3
+prompt,4
+##
+then,5
+set,6
+source,7
+alias,8
+!##,0

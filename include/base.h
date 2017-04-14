@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Mon Apr 10 09:28:50 2017 Bender_Jr
+** Last update Fri Apr 14 18:37:54 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -14,21 +14,21 @@
 /*
 ** for ssize_t  typedef
 */
-
 # include <unistd.h>
 
 /*
-** strtowortab inclusion
+** strtowortab, p_printf
+** and formating error msg
+** inclusion
 */
-
 # include "strtowordtab.h"
-
+# include "printf.h"
+# include "errors.h"
 /*
 ** string*.c
 */
-
 ssize_t	len(const char *str);
-int	tab_size(char **tab);
+ssize_t	tab_len(char **tab);
 int	strn_cmp(const char *s1, const char *s2, size_t n);
 char	*my_strcat(char *dest, const char *src);
 char	*my_strdup(const char *src);

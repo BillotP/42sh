@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:32:53 2017 Bender_Jr
-** Last update Mon Apr 10 09:32:56 2017 Bender_Jr
+** Last update Fri Apr 14 18:47:32 2017 Bender_Jr
 */
 
 # include <stdlib.h>
@@ -16,13 +16,15 @@ char		*epurstr(char *str, int c)
 {
   ssize_t	i;
   ssize_t	j;
+  char		*tmp;
   char		*clean;
 
   i = 0;
   j = 0;
+  tmp = str;
   if ((clean = malloc(len(str) + 1)) == NULL ||
       !str || len(str) < 1)
-    return (free(clean), str);
+    return (free(clean), tmp);
   while (str && (str[i] == ' ' || str[i] == '\t'))
     str++;
   while (str && str[i] != '\0')
@@ -34,7 +36,7 @@ char		*epurstr(char *str, int c)
 	clean[j++] = str[i++];
       clean[j++] = c;
     }
-  free(str);
+  free(tmp);
   return (clean[j - 1] = '\0', clean);
 }
 
@@ -55,16 +57,6 @@ int	my_stringisnum(const char *str)
     return (j);
   else
     return (0);
-}
-
-int	tab_size(char **tab)
-{
-  int	i;
-
-  i = 0;
-  while (tab[i])
-    i++;
-  return (i);
 }
 
 char	*my_strcatvs(char *dest, const char *src)

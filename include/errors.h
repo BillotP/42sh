@@ -1,42 +1,38 @@
 /*
-** errors.h for PSU_2016_42sh in /home/bender/LASTP/psu_2016_42sh
+** errors.h for CPE_2016_corewar in /home/bender/Repo/CPE/CPE_2016_corewar/asm
 **
 ** Made by Bender_Jr
 ** Login   <@epitech.eu>
 **
-** Started on  Mon Apr 10 09:29:08 2017 Bender_Jr
-** Last update Mon Apr 10 09:29:19 2017 Bender_Jr
+** Started on  Mon Mar 20 19:08:06 2017 Bender_Jr
+** Last update Tue Apr 11 23:29:55 2017 Bender_Jr
 */
 
 #ifndef ERRORS_H_
 # define ERRORS_H_
 
-#ifndef ERR
-# define ERR		"\033[1m42sh, error\n\t\033[0m"
-# endif /* !ERR */
-
-#ifndef CMD_ERR
-# define CMD_ERR	"\033[31mCommand not found\033[0m"
-# endif /* !CMD_ERR */
-
-#ifndef NO_DIR
-# define NO_DIR		"\033[31mNo such file or directory\033[0m\n"
-# endif /* !NO_DIR */
-
-#ifndef CLOSE_ERR
-# define CLOSE_ERR	"Failed to close fd\n"
-# endif /* !CLOSE_ERR */
-
-/*
-** Format output macro
-*/
-
 #ifndef BLD
-# define BLD		"\033[1m"
+# define BLD "\033[1m"
 # endif /* !BLD */
 
 #ifndef RST
-# define RST		"\033[0m"
+# define RST "\033[0m"
 # endif /* !RST */
 
-#endif /* !ERRORS_H_ */
+#ifndef RED
+# define RED "\033[31m"
+# endif /* !RED */
+
+#ifndef ERR
+# define ERR		"\033[1mParser, error : \033[0m\n\t\t"
+# endif /* !ERR */
+
+#ifndef NAME_ERR
+# define NAME_ERR	"\033[31mNo such file or directory\033[0m"
+#endif /* NAME_ERR */
+
+#ifndef CMT_ERR
+#define CMT_ERR		"\033[31mInvalid comment\033[0m"
+#endif /* CMT_ERR */
+
+#endif /* ERRORS_H_ */
