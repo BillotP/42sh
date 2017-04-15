@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sat Apr 15 13:56:53 2017 Bender_Jr
+## Last update Sat Apr 15 22:08:36 2017 Bender_Jr
 ##
 
 CC		= gcc
@@ -30,6 +30,8 @@ LDFLAGS		+= -z relro -z now -pie
 NAME		= 42sh
 
 TEST		= parser
+
+NAME2		= termios
 
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
@@ -56,12 +58,21 @@ SRC_P		= $(SRCS)				\
 		src/scripting/tree_utils.c		\
 		src/scripting/parser.c
 
+SRC_TERMIOS	= $(SRCS)				\
+		src/termios/termios.c
+
+OBJ_N2		= $(SRC_TERMIOS:.c=.o)
 OBJ_S		= $(SRC_S:.c=.o)
 OBJ_P		= $(SRC_P:.c=.o)
 
-all:		$(NAME) $(TEST)
+all:		$(NAME)
 
 test:		$(NAME)
+
+termios:	$(NAME2)
+
+$(NAME2):	$(OBJ_N2)
+		$(CC) $(OBJ_N2) -o $(NAME2) $(LDFLAGS)
 
 $(TEST):	$(OBJ_P)
 		$(CC) $(OBJ_P) -o $(TEST) $(LDFLAGS)
@@ -78,10 +89,12 @@ dbgpars:
 clean:
 		$(RM) 	$(OBJ_S)
 		$(RM)	$(OBJ_P)
+		$(RM)	$(OBJ_N2)
 
 fclean:		clean
 		$(RM) 	$(NAME)
 		$(RM)	$(TEST)
+		$(RM)	$(NAME2)
 
 re:		fclean all
 
