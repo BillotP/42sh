@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Fri Apr 14 18:37:54 2017 Bender_Jr
+** Last update Sat Apr 15 13:55:16 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -24,6 +24,16 @@
 # include "strtowordtab.h"
 # include "printf.h"
 # include "errors.h"
+
+/*
+** check_str valid char
+*/
+#ifndef LEGIT_CHAR
+# define LEGIT_CHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
+abcdefghijklmnopqrstuvwxyz\
+!#,:`'*.=$-+/\\()?%~>\"@"
+# endif /* !LEGIT_CHAR */
+
 /*
 ** string*.c
 */
@@ -49,5 +59,11 @@ int	pprint(const char *str, int fd);
 char	**freetab(char **ptr);
 char	*clean_free(char *ptr);
 char	*epurstr(char *str, int c);
+
+/*
+** check.c
+*/
+int		is_legitchar(char c);
+int		is_legitstr(char *str);
 
 #endif /* !BASE_H_ */

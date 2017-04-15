@@ -14,7 +14,7 @@ if ($?prompt) then
 # terminal.  Currently set to display hostname, and current working
 # directory.
 # ==================================================================
-set prompt = "%m:%~> "
+set prompt = "%U@%H > "
 
 # ==================================================================
 #                       rmstar shell variable

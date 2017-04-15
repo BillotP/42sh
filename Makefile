@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Fri Apr 14 18:43:37 2017 Bender_Jr
+## Last update Sat Apr 15 13:56:53 2017 Bender_Jr
 ##
 
 CC		= gcc
@@ -15,7 +15,7 @@ RM		= rm -f
 ##
 ## Release build Flags
 ##
-CFLAGS		+= -Wextra -Wall -Werror -ansi
+CFLAGS		+= -Wextra -Wall -Werror -std=gnu90
 CFLAGS		+= -O2 -fstack-protector -fPIC
 CFLAGS		+= -D_FORTIFY_SOURCE=2
 CFLAGS		+= -I./include/
@@ -23,15 +23,17 @@ CFLAGS		+= -I./include/
 ##
 ## d-bug flags
 ##
-DFLAGS		+= -O0 -g3 -D DEBUG -I./include/
+DFLAGS		+= -O0 -g3 -D DEBUG -std=gnu90 -I./include/
 
 LDFLAGS		+= -z relro -z now -pie
 
-42SH		= 42sh
-PARSER		= parser
+NAME		= 42sh
+
+TEST		= parser
 
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
+		lib/core/check.c		\
 		lib/core/flag_match.c		\
 		lib/core/flgs.c			\
 		lib/core/get_next_line.c	\
@@ -41,43 +43,45 @@ SRCS		= lib/core/base.c		\
 		lib/core/stringbis.c		\
 		lib/core/strtowordtab.c
 
-SRC_SHELL	= $(SRCS)			\
+SRC_S		= $(SRCS)			\
+		src/prompt_print/prompt.c	\
+		src/prompt_print/pr_printf.c	\
 		src/main.c
 
-SRC_PARSER	= $(SRCS)			\
-		src/check.c			\
-		src/fill_tree.c			\
-		src/get_keywrd.c		\
-		src/node_ops.c			\
-		src/tree.c			\
-		src/tree_utils.c		\
-		src/parser.c
+SRC_P		= $(SRCS)				\
+		src/scripting/fill_tree.c		\
+		src/scripting/get_keywrd.c		\
+		src/scripting/node_ops.c		\
+		src/scripting/tree.c			\
+		src/scripting/tree_utils.c		\
+		src/scripting/parser.c
 
-OBJ_S		= $(SRC_SHELL:.c=.o)
+OBJ_S		= $(SRC_S:.c=.o)
+OBJ_P		= $(SRC_P:.c=.o)
 
-OBJ_P		= $(SRC_PARSER:.c=.o)
+all:		$(NAME) $(TEST)
 
-$(PARSER):	$(OBJ_P)
-		$(CC) $(OBJ_P) -o $(PARSER)
+test:		$(NAME)
 
-$(SHELL):	$(OBJ_S)
-		$(CC) $(OBJ_S) -o $(42SH) $(LDFLAGS)
+$(TEST):	$(OBJ_P)
+		$(CC) $(OBJ_P) -o $(TEST) $(LDFLAGS)
 
-all:		$(42SH)
-
-parser:		$(PARSER)
+$(NAME):	$(OBJ_S)
+		$(CC) $(OBJ_S) -o $(NAME) $(LDFLAGS)
 
 dbgsh:
-		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_SHELL) -o dbg42
+		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_S) -o $(NAME)
 
 dbgpars:
-		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_PARSER) -o dbgpars
+		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_P) -o $(TEST)
 
 clean:
-		$(RM) $(OBJ_S) $(OBJ_P)
+		$(RM) 	$(OBJ_S)
+		$(RM)	$(OBJ_P)
 
 fclean:		clean
-		$(RM) $(42SH) $(PARSER)
+		$(RM) 	$(NAME)
+		$(RM)	$(TEST)
 
 re:		fclean all
 

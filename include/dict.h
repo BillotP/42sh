@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 21:07:29 2017 Bender_Jr
-** Last update Fri Apr 14 11:04:56 2017 Bender_Jr
+** Last update Sat Apr 15 13:51:53 2017 Bender_Jr
 */
 
 #ifndef DICT_H_
@@ -41,24 +41,12 @@ typedef struct	s_keyword {
 # define CMT_CHAR '#'
 # endif /* !CMT_CHAR */
 
-#ifndef LEGIT_CHAR
-# define LEGIT_CHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
-abcdefghijklmnopqrstuvwxyz\
-!#,:`'*.=$-+/\\()?%~>\""
-# endif /* !LEGIT_CHAR */
-
 /*
 ** srcs/get_keywrd.c
 */
 int		check_keyword(char *bfr, int line, t_tree *tree, t_keyword keytab[]);
 int		err_dictfile(char *tofree, int line_info, int ret_val);
 t_keyword	*fill_keyword(t_keyword *ptr, int dict_fd);
-
-/*
-** srcs/check.c
-*/
-int		is_legitchar(char c);
-int		is_legitstr(char *str);
 
 /*
 ** error messages

@@ -5,11 +5,10 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Wed Apr 12 00:10:52 2017 Bender_Jr
-** Last update Fri Apr 14 11:03:30 2017 Bender_Jr
+** Last update Sat Apr 15 13:49:54 2017 Bender_Jr
 */
 
 # include "base.h"
-# include "dict.h"
 
 int	is_legitchar(char c)
 {
