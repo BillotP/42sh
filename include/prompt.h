@@ -5,11 +5,16 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:03:08 2017 Bender_Jr
-** Last update Sat Apr 15 11:23:00 2017 Bender_Jr
+** Last update Sat Apr 15 14:48:37 2017 Bender_Jr
 */
 
 #ifndef PROMPT_H_
 # define PROMPT_H_
+
+/*
+** size_t typedef
+*/
+typedef unsigned long size_t;
 
 /*
 ** Prompt size define
@@ -17,6 +22,14 @@
 #ifndef PROMPT_SIZE
 # define PROMPT_SIZE (126)
 # endif /* !PROMPT_SIZE */
+
+/*
+** max path len (to be moved
+** in limits.h
+*/
+#ifndef PATH_SIZE
+# define PATH_SIZE (4096)
+# endif /* !PATH_SIZE */
 
 /*
 ** prompt glob_var
@@ -75,5 +88,6 @@ int	pr_printf(const char *format);
 ** Gnu fonction prototyping
 */
 char	*secure_getenv(const char *name);
+char	*getcwd(char *buf, size_t size);
 
 #endif /* !PROMPT_H_ */
