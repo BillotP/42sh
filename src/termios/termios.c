@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Sun Apr 16 17:52:51 2017 Bender_Jr
+** Last update Sun Apr 16 18:19:39 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -36,12 +36,12 @@ int		 exec(char *buff)
 
 int		set_cap(struct termios *new, int tty_fd)
 {
-  new->c_iflag &= ~IGNBRK;
-  new->c_iflag |= BRKINT;
+  new->c_iflag &= ~(IGNBRK | BRKINT);
   new->c_lflag |= (ICANON | ECHOE | IEXTEN | ISIG);
   new->c_cc[VINTR] = 0x03;
   new->c_cc[VERASE] = 0x7F;
   new->c_cc[VQUIT] = 0x21;
+  new->c_cc[VSUSP] = 0x1A;
   new->c_cc[VWERASE] = 0x17;
   new->c_cc[VEOF] = 0x04;
   if ((cfsetispeed(new, B38400) == -1) ||
