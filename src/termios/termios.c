@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Sun Apr 16 18:19:39 2017 Bender_Jr
+** Last update Mon Apr 17 00:09:25 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -83,9 +83,10 @@ int			main()
   int			fd;
 
 
-  if ((fd = open(ttyname(0), O_RDWR)) == -1 ||
+if ((fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
       (init_term(fd, &new, &save)) == -1)
-    return (84);
+    return (p_printf(2, "%s%s", ERR, "stty: 'standard input':\
+Inappropriate ioctl for device\n"), 1);
   p_printf(0, "toto >> ");
   while ((rd = read(fd, bfr, 4095)))
     {

@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sun Apr 16 21:24:44 2017 Bender_Jr
+## Last update Sun Apr 16 23:00:11 2017 Bender_Jr
 ##
 
 
@@ -43,7 +43,7 @@ NAME		= 42sh
 
 TEST		= parser
 
-NAME2		= termios
+NAME2		= tksh
 
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
@@ -79,7 +79,7 @@ OBJ_P		= $(SRC_P:.c=.o)
 
 all:		$(NAME)
 
-test:		$(NAME)
+test:		$(NAME2)
 
 termios:	$(NAME2)
 

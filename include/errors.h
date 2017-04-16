@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Mar 20 19:08:06 2017 Bender_Jr
-** Last update Tue Apr 11 23:29:55 2017 Bender_Jr
+** Last update Mon Apr 17 00:01:40 2017 Bender_Jr
 */
 
 #ifndef ERRORS_H_
@@ -24,7 +24,7 @@
 # endif /* !RED */
 
 #ifndef ERR
-# define ERR		"\033[1mParser, error : \033[0m\n\t\t"
+# define ERR		"\033[1mTekSh, error : \033[0m\n\t\t"
 # endif /* !ERR */
 
 #ifndef NAME_ERR
