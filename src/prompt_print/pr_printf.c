@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:00:54 2017 Bender_Jr
-** Last update Sat Apr 15 14:18:56 2017 Bender_Jr
+** Last update Sat Apr 15 16:49:26 2017 Bender_Jr
 */
 
 # include "prompt.h"
@@ -49,14 +49,18 @@ int		pr_printf(const char *format)
     return (-1);
   i = 0;
   xmemset(g_prompt, '\0', PROMPT_SIZE);
+  if (len(format) > PROMPT_SIZE)
+    return (p_printf(2, "%sSet prompt error:%s\n\t%s%s%s\n",
+		     BLD, RST, RED, "Prompt too long (max 126)", RST), -1);
   while (i != len(format) + 1)
     {
-      p_printf(1, "prompt ? [%s]\n\n", g_prompt);
       if (format[i] == '%' && fill_promptbfr(format[i + 1]))
 	i += 2;
       if (is_legitchar(format[i]))
 	g_prompt[len(g_prompt)] =  format[i];
       i += 1;
     }
+  if (isatty(0))
+    p_printf(1, "%s", g_prompt);
   return (0);
 }
