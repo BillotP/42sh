@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Sun Apr 16 11:20:10 2017 Bender_Jr
+** Last update Sun Apr 16 17:52:51 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -24,12 +24,12 @@ int		 exec(char *buff)
 {
   FILE		*pipe;
   char		ptr[4096];
+  char		*tmp;
 
   if ((pipe = popen(buff, "r")) == NULL)
     return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
-  while ((fgets(ptr, 4096, pipe)) != NULL)
-    p_printf(0, "%s", ptr);
-  p_printf(0, "\n");
+  while ((tmp = fgets(ptr, 4095, pipe)))
+    p_printf(0, "%s", tmp);
   pclose(pipe);
   return (0);
 }
@@ -41,7 +41,8 @@ int		set_cap(struct termios *new, int tty_fd)
   new->c_lflag |= (ICANON | ECHOE | IEXTEN | ISIG);
   new->c_cc[VINTR] = 0x03;
   new->c_cc[VERASE] = 0x7F;
-  new->c_cc[VQUIT] = 0x5C;
+  new->c_cc[VQUIT] = 0x21;
+  new->c_cc[VWERASE] = 0x17;
   new->c_cc[VEOF] = 0x04;
   if ((cfsetispeed(new, B38400) == -1) ||
       (tcflush(tty_fd, TCIFLUSH) == -1) ||
@@ -52,7 +53,7 @@ int		set_cap(struct termios *new, int tty_fd)
 
 int	reset_cap(struct termios *save, int tty_fd)
 {
-  p_printf(1, "mode off \n");
+  p_printf(1, "exit\n");
   if ((tcsetattr(tty_fd, TCSANOW, save)) == -1)
     return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
   return (0);
@@ -62,7 +63,6 @@ int	init_term(int tty_fd, struct termios *new, struct termios *save)
 {
   if (isatty(tty_fd))
     {
-      p_printf(1, "mode on \n");
       if ((tcgetattr(tty_fd, save)) == -1 ||
 	  (tcgetattr(tty_fd, new)) == -1)
 	return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
@@ -90,9 +90,13 @@ int			main()
   while ((rd = read(fd, bfr, 4095)))
     {
       bfr[rd] = 0;
+      if (bfr[0] == '\f')
+	exec("clear");
       if (rd > 1)
-	if ((exec(bfr)) == -1)
-	  return (reset_cap(&save, fd), 1);
+	{
+	  if ((exec(bfr)) == -1)
+	    return (reset_cap(&save, fd), 1);
+	}
       p_printf(0, "toto >> ");
     }
   reset_cap(&save, fd);
