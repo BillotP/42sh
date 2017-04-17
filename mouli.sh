@@ -5,9 +5,16 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Mon Apr 17 14:37:08 2017 Bender_Jr
+## Last update Mon Apr 17 14:54:22 2017 Bender_Jr
 ##
 
+# clean option (use with ./mouli.sh -c)
+clean='-c'
+if [ "$@" == "$clean" ]
+then
+    make fclean && rm -rf logz
+    exit 0
+fi
 # color output variable
 red='\033[31m'
 green='\033[32m'
@@ -108,10 +115,10 @@ difftest=$(diff $logdir/toto.log $logdir/tata.log)
 
 if [ "$difftest" ]
 then
-    echo -e "                ======== >>>> ${red}ya du diff !!${rst} <<<< ========"
+    echo -e "\t\t======== >>>> ${red}ya du diff !!${rst} <<<< ======== " >> $logdir/logs.txt
     echo "$difftest" >> $logdir/logs.txt
-    cat $logdir/logs.txt
 else
-    echo -e "${green} **** > Pas de diff TEST passed 100 % !!!! ***** ${rst}"
+    echo -e "\t\t${green}****| Pas de diff TEST passed 100 % |*****${rst}" >> $logdir/logs.txt
 fi
+cat $logdir/logs.txt
 exit 0

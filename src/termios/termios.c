@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Mon Apr 17 10:38:47 2017 Bender_Jr
+** Last update Mon Apr 17 15:08:55 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -91,7 +91,7 @@ int			main()
     {
       if ((fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
 	  (init_term(fd, &new, &save)) == -1)
-	return (p_printf(2, "%s%s\n", ERR, TTY_ERR), 1);
+	return (p_printf(2, "%s%s\n", ERR, strerror(errno)), 1);
       p_printf(1, "toto >> ");
     }
   else
