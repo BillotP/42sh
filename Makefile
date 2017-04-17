@@ -5,11 +5,11 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sun Apr 16 23:00:11 2017 Bender_Jr
+## Last update Mon Apr 17 13:33:35 2017 Bender_Jr
 ##
 
 
-uname_s := $(shell uname -s)
+uname_s := $(shell uname -srm)
 $(info ' **************************************************************************  ')
 $(info '    _  _   .___________. _______  __  ___      _______. __    __     _  _    ')   
 $(info '  _| || |_ |           ||   ____||  |/  /     /       ||  |  |  |  _| || |_  ') 
