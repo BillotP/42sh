@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Mar 20 19:08:06 2017 Bender_Jr
-** Last update Mon Apr 17 00:01:40 2017 Bender_Jr
+** Last update Mon Apr 17 09:18:43 2017 Bender_Jr
 */
 
 #ifndef ERRORS_H_
@@ -26,6 +26,10 @@
 #ifndef ERR
 # define ERR		"\033[1mTekSh, error : \033[0m\n\t\t"
 # endif /* !ERR */
+
+#ifndef TTY_ERR
+# define TTY_ERR	"stty: 'standard input': Inappropriate ioctl for device"
+#endif /* !TTY_ERR */
 
 #ifndef NAME_ERR
 # define NAME_ERR	"\033[31mNo such file or directory\033[0m"

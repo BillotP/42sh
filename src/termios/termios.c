@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Mon Apr 17 00:09:25 2017 Bender_Jr
+** Last update Mon Apr 17 10:38:47 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -26,12 +26,12 @@ int		 exec(char *buff)
   char		ptr[4096];
   char		*tmp;
 
+  fflush(NULL);
   if ((pipe = popen(buff, "r")) == NULL)
-    return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
+    return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
   while ((tmp = fgets(ptr, 4095, pipe)))
-    p_printf(0, "%s", tmp);
-  pclose(pipe);
-  return (0);
+    p_printf(1, "%s", tmp);
+  return (pclose(pipe) == 0 ? 0 : 1);
 }
 
 int		set_cap(struct termios *new, int tty_fd)
@@ -47,15 +47,19 @@ int		set_cap(struct termios *new, int tty_fd)
   if ((cfsetispeed(new, B38400) == -1) ||
       (tcflush(tty_fd, TCIFLUSH) == -1) ||
       (tcsetattr(tty_fd, TCSANOW, new)) == -1)
-    return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
+    return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
   return (0);
 }
 
 int	reset_cap(struct termios *save, int tty_fd)
 {
-  p_printf(1, "exit\n");
-  if ((tcsetattr(tty_fd, TCSANOW, save)) == -1)
-    return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
+  if (isatty(tty_fd))
+    {
+      if ((tcsetattr(tty_fd, TCSANOW, save)) == -1)
+	return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
+      p_printf(1, "exit\n");
+      return (0);
+    }
   return (0);
 }
 
@@ -80,26 +84,27 @@ int			main()
   static struct termios new;
   static struct termios save;
   ssize_t		rd;
+  int			rt;
   int			fd;
 
-
-if ((fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
-      (init_term(fd, &new, &save)) == -1)
-    return (p_printf(2, "%s%s", ERR, "stty: 'standard input':\
-Inappropriate ioctl for device\n"), 1);
-  p_printf(0, "toto >> ");
+  if (isatty(0))
+    {
+      if ((fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
+	  (init_term(fd, &new, &save)) == -1)
+	return (p_printf(2, "%s%s\n", ERR, TTY_ERR), 1);
+      p_printf(1, "toto >> ");
+    }
+  else
+    fd = STDIN_FILENO;
+  rt = 0;
   while ((rd = read(fd, bfr, 4095)))
     {
       bfr[rd] = 0;
-      if (bfr[0] == '\f')
-	exec("clear");
-      if (rd > 1)
-	{
-	  if ((exec(bfr)) == -1)
-	    return (reset_cap(&save, fd), 1);
-	}
-      p_printf(0, "toto >> ");
+      if ((rt = exec(bfr)) == -1)
+	return (reset_cap(&save, fd), rt);
+      if (isatty(fd))
+	p_printf(1, "toto >> ");
     }
   reset_cap(&save, fd);
-  return (0);
+  return (rt);
 }

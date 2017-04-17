@@ -5,18 +5,21 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Mon Apr 17 01:44:50 2017 Bender_Jr
+## Last update Mon Apr 17 10:37:54 2017 Bender_Jr
 ##
 
 # color output variable
 red='\033[31m'
+green='\033[32m'
 blue='\033[34m'
 bld='\033[1m'
 rst='\033[0m'
+
 # variable defines
 prog='tksh'
 compil='test'
 logdir='logz'
+
 # test cmd array
 testcmd[0]="ls -l"
 testcmd[1]="ls -la"
@@ -61,7 +64,9 @@ man_tcsh ()
 	rm -f $logdir/tata.log
     fi
     for i in "${testcmd[@]}"; do
+	echo -e "${bld}cmd : ${blue}${i}${rst}" >> $logdir/tata.log
 	echo "${i}" | tcsh >> $logdir/tata.log 2>&1
+	echo -e "${bld}exit_val : ${red}$?${rst}" >> $logdir/tata.log
     done
 }
 
@@ -84,7 +89,6 @@ man_tcsh
 if [ -f $logdir/logs.txt ]; then
     rm -f $logdir/logs.txt
 fi
-diff $logdir/toto.log $logdir/tata.log >> $logdir/logs.txt
 echo "                 **************************************              "
 echo "                 **************************************              "
 echo -e "${bld}                   Teksh logz :                       ${rst}"
@@ -96,7 +100,18 @@ echo "                 **************************************              "
 cat $logdir/tata.log
 echo "                 **************************************              "
 echo "                 ### ******************************* ###             "
-echo -e "             ${bld}${blue}         ##  RESULTS ##                           ${rst}"
+echo -e "${bld}${blue}                              ##  RESULTS ## ${rst}  "
 echo "                 ### ******************************* ###             "
-cat $logdir/logs.txt
+
+# diff commands
+difftest=$(diff $logdir/toto.log $logdir/tata.log)
+
+if [ "$difftest" ]
+then
+    echo -e "                ======== >>>> ${red}ya du diff !!${rst} <<<< ========"
+    echo "$difftest" >> $logdir/logs.txt
+    cat $logdir/logs.txt
+else
+    echo -e "${green} **** > Pas de diff TEST passed 100 % !!!! ***** ${rst}"
+fi
 exit 0
