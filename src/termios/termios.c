@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Mon Apr 17 15:08:55 2017 Bender_Jr
+** Last update Mon Apr 17 17:49:26 2017 Bender_Jr
 */
 
 # include <string.h>
@@ -19,6 +19,12 @@
 # include <unistd.h>
 # include "base.h"
 # include "get_next_line.h"
+
+typedef struct		s_termios {
+  struct termios	new;
+  struct termios	save;
+  int			tty_fd;
+}			t_termios;
 
 int		 exec(char *buff)
 {
@@ -63,48 +69,42 @@ int	reset_cap(struct termios *save, int tty_fd)
   return (0);
 }
 
-int	init_term(int tty_fd, struct termios *new, struct termios *save)
+int	init_term(t_termios *list)
 {
-  if (isatty(tty_fd))
+  if (isatty(STDIN_FILENO))
     {
-      if ((tcgetattr(tty_fd, save)) == -1 ||
-	  (tcgetattr(tty_fd, new)) == -1)
+      if ((list->tty_fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
+	  (tcgetattr(list->tty_fd, &(list)->save)) == -1 ||
+	  (tcgetattr(list->tty_fd, &(list)->new)) == -1 ||
+	  (set_cap(&(list)->new, list->tty_fd)) == -1)
 	return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
-      else if ((set_cap(new, tty_fd)) == -1)
-	return (-1);
-      else
-	return (0);
+      return (0);
     }
-  return (-1);
+  else
+    list->tty_fd = STDIN_FILENO;
+  return (0);
 }
 
 int			main()
 {
   char			bfr[4096];
-  static struct termios new;
-  static struct termios save;
+  t_termios		list;
   ssize_t		rd;
   int			rt;
-  int			fd;
 
-  if (isatty(0))
-    {
-      if ((fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1 ||
-	  (init_term(fd, &new, &save)) == -1)
-	return (p_printf(2, "%s%s\n", ERR, strerror(errno)), 1);
-      p_printf(1, "toto >> ");
-    }
-  else
-    fd = STDIN_FILENO;
   rt = 0;
-  while ((rd = read(fd, bfr, 4095)))
+  if ((rt = init_term(&list)) == -1)
+    return (1);
+  if (isatty(list.tty_fd))
+    p_printf(1, "toto >> ");
+  while ((rd = read(list.tty_fd, bfr, 4095)))
     {
       bfr[rd] = 0;
       if ((rt = exec(bfr)) == -1)
-	return (reset_cap(&save, fd), rt);
-      if (isatty(fd))
+	return (reset_cap(&(list).save, list.tty_fd), rt);
+      if (isatty(list.tty_fd))
 	p_printf(1, "toto >> ");
     }
-  reset_cap(&save, fd);
+  reset_cap(&(list).save, list.tty_fd);
   return (rt);
 }

@@ -5,10 +5,12 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Mon Apr 17 14:54:22 2017 Bender_Jr
+## Last update Mon Apr 17 15:10:14 2017 Bender_Jr
 ##
 
 # clean option (use with ./mouli.sh -c)
+# will later be expand to handle more test
+# like the builtins ones, scripting etc
 clean='-c'
 if [ "$@" == "$clean" ]
 then
