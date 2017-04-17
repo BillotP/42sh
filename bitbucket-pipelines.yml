@@ -23,6 +23,6 @@ pipelines:
     - step:
         script:
          - zypper -n update
-         - zypper in -n -t pattern devel_C_C++
+         - zypper -n in -t pattern devel_C_C++
          - zypper -n install tcsh 
          - ./mouli.sh
