@@ -22,6 +22,6 @@ pipelines:
     default:
     - step:
         script:
-         - apt-get -y update
-         - apt-get -y install tcsh
+         - zypper update
+         - zypper install tcsh
          - ./mouli.sh
