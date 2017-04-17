@@ -16,7 +16,7 @@
 #        '--'  `---'                              
 ############Continuous integration build config####
 
-image: gcc:6.1
+image: opensuse:tumbleweed
 
 pipelines:
     default:
