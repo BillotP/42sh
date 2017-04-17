@@ -22,6 +22,7 @@ pipelines:
     default:
     - step:
         script:
-         - zypper update --non-interactive
-         - zypper install --non-interactive tcsh 
+         - zypper -n update
+         - zypper -n -t pattern devel_C_C++
+         - zypper -n install tcsh 
          - ./mouli.sh
