@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Mon Apr 17 10:37:54 2017 Bender_Jr
+## Last update Mon Apr 17 14:37:08 2017 Bender_Jr
 ##
 
 # color output variable
@@ -16,8 +16,8 @@ bld='\033[1m'
 rst='\033[0m'
 
 # variable defines
+compil="make .PHONY"
 prog='tksh'
-compil='test'
 logdir='logz'
 
 # test cmd array
@@ -42,7 +42,7 @@ init_logtxt ()
 	echo "**************TekSH2k17*************" >> $logdir/logs.txt
     fi
     if [ ! -f $prog ]; then
-	make $compil && make clean
+	${compil}
     fi
 }
 

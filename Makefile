@@ -5,9 +5,8 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Mon Apr 17 13:33:35 2017 Bender_Jr
+## Last update Mon Apr 17 14:30:56 2017 Bender_Jr
 ##
-
 
 uname_s := $(shell uname -srm)
 $(info ' **************************************************************************  ')
@@ -110,4 +109,4 @@ fclean:		clean
 
 re:		fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		termios clean
