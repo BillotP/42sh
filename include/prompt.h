@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:03:08 2017 Bender_Jr
-** Last update Sat Apr 15 14:48:37 2017 Bender_Jr
+** Last update Tue Apr 18 10:29:56 2017 Bender_Jr
 */
 
 #ifndef PROMPT_H_
@@ -66,7 +66,7 @@ int	set_time(char prompt_bfr[]);
 /*
 ** Flag '%~'
 ** Note : this flag print the
-** current working dir minus the /home/toto
+** current working dir minus the /home/$user
 ** path (replaced by '~' char)
 */
 int	set_cwd(char prompt_bfr[]);

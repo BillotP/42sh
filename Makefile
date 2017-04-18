@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Mon Apr 17 14:30:56 2017 Bender_Jr
+## Last update Tue Apr 18 10:33:32 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -42,8 +42,6 @@ NAME		= 42sh
 
 TEST		= parser
 
-NAME2		= tksh
-
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
 		lib/core/check.c		\
@@ -59,6 +57,7 @@ SRCS		= lib/core/base.c		\
 SRC_S		= $(SRCS)			\
 		src/prompt_print/prompt.c	\
 		src/prompt_print/pr_printf.c	\
+		src/termios/termios.c		\
 		src/main.c
 
 SRC_P		= $(SRCS)				\
@@ -69,21 +68,12 @@ SRC_P		= $(SRCS)				\
 		src/scripting/tree_utils.c		\
 		src/scripting/parser.c
 
-SRC_TERMIOS	= $(SRCS)				\
-		src/termios/termios.c
-
-OBJ_N2		= $(SRC_TERMIOS:.c=.o)
 OBJ_S		= $(SRC_S:.c=.o)
 OBJ_P		= $(SRC_P:.c=.o)
 
 all:		$(NAME)
 
-test:		$(NAME2)
-
-termios:	$(NAME2)
-
-$(NAME2):	$(OBJ_N2)
-		$(CC) $(OBJ_N2) -o $(NAME2) $(LDFLAGS)
+parser:		$(TEST)
 
 $(TEST):	$(OBJ_P)
 		$(CC) $(OBJ_P) -o $(TEST) $(LDFLAGS)
@@ -100,13 +90,11 @@ dbgpars:
 clean:
 		$(RM) 	$(OBJ_S)
 		$(RM)	$(OBJ_P)
-		$(RM)	$(OBJ_N2)
 
 fclean:		clean
 		$(RM) 	$(NAME)
 		$(RM)	$(TEST)
-		$(RM)	$(NAME2)
 
 re:		fclean all
 
-.PHONY:		termios clean
+.PHONY:		all clean

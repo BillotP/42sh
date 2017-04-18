@@ -5,40 +5,29 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Mon Apr 17 17:49:26 2017 Bender_Jr
+** Last update Tue Apr 18 10:39:39 2017 Bender_Jr
 */
 
+/*
+** for strerror
+*/
 # include <string.h>
 # include <errno.h>
 # include <stdlib.h>
-# include <stdio.h>
+/*
+** for open
+*/
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <termios.h>
+/*
+** for isatty
+*/
 # include <unistd.h>
+# include "prompt.h"
+# include "my_termios.h"
 # include "base.h"
 # include "get_next_line.h"
-
-typedef struct		s_termios {
-  struct termios	new;
-  struct termios	save;
-  int			tty_fd;
-}			t_termios;
-
-int		 exec(char *buff)
-{
-  FILE		*pipe;
-  char		ptr[4096];
-  char		*tmp;
-
-  fflush(NULL);
-  if ((pipe = popen(buff, "r")) == NULL)
-    return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
-  while ((tmp = fgets(ptr, 4095, pipe)))
-    p_printf(1, "%s", tmp);
-  return (pclose(pipe) == 0 ? 0 : 1);
-}
 
 int		set_cap(struct termios *new, int tty_fd)
 {
@@ -78,33 +67,36 @@ int	init_term(t_termios *list)
 	  (tcgetattr(list->tty_fd, &(list)->new)) == -1 ||
 	  (set_cap(&(list)->new, list->tty_fd)) == -1)
 	return (p_printf(2, "%s%s", ERR, strerror(errno)) -1);
-      return (0);
+      else if ((pr_printf(list->prompt_frmat)) == -1)
+	return (-1);
+      else
+	return (0);
     }
   else
     list->tty_fd = STDIN_FILENO;
   return (0);
 }
 
-int			main()
-{
-  char			bfr[4096];
-  t_termios		list;
-  ssize_t		rd;
-  int			rt;
+/* int			main() */
+/* { */
+/*   char			bfr[4096]; */
+/*   t_termios		list; */
+/*   ssize_t		rd; */
+/*   int			rt; */
 
-  rt = 0;
-  if ((rt = init_term(&list)) == -1)
-    return (1);
-  if (isatty(list.tty_fd))
-    p_printf(1, "toto >> ");
-  while ((rd = read(list.tty_fd, bfr, 4095)))
-    {
-      bfr[rd] = 0;
-      if ((rt = exec(bfr)) == -1)
-	return (reset_cap(&(list).save, list.tty_fd), rt);
-      if (isatty(list.tty_fd))
-	p_printf(1, "toto >> ");
-    }
-  reset_cap(&(list).save, list.tty_fd);
-  return (rt);
-}
+/*   rt = 0; */
+/*   if ((rt = init_term(&list)) == -1) */
+/*     return (1); */
+/*   if (isatty(list.tty_fd)) */
+/*     p_printf(1, "toto >> "); */
+/*   while ((rd = read(list.tty_fd, bfr, 4095))) */
+/*     { */
+/*       bfr[rd] = 0; */
+/*       if ((rt = exec(bfr)) == -1) */
+/* 	return (reset_cap(&(list).save, list.tty_fd), rt); */
+/*       if (isatty(list.tty_fd)) */
+/* 	p_printf(1, "toto >> "); */
+/*     } */
+/*   reset_cap(&(list).save, list.tty_fd); */
+/*   return (rt); */
+/* } */
