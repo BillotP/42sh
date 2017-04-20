@@ -5,11 +5,13 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Thu Apr 20 10:54:31 2017 Bender_Jr
+** Last update Thu Apr 20 14:57:00 2017 Bender_Jr
 */
 
 # include "builtins.h"
 # include "base.h"
+
+volatile int tty_fd;
 
 # define PATH_MAX (4096)
 
@@ -33,7 +35,23 @@ int		cd(char **cmd)
   return (1);
 }
 
+# include <stdio.h>
 
+int		clear(UNUSED char **cmd)
+{
+  /* int		i; */
+  char		clear[5] ={27, '[', '2', '0'};
+
+  i = 0;
+  while (clear[i])
+    {
+      if (write(tty_fd, &clear[i], 1) == -1)
+  	return (-1);
+      i++;
+    }
+  /* printf("%s", clear); */
+  return (1);
+}
 void		fill_builtins(t_blts *list)
 {
   char		**tmp;
@@ -42,6 +60,7 @@ void		fill_builtins(t_blts *list)
   list->blts_names = tmp;
   list->btptr[0] = cd;
   list->btptr[1] = echo;
+  list->btptr[2] = clear;
 }
 
 int		is_builtins(char **cmd, t_blts *ptr)

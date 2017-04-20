@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:34:43 2017 Bender_Jr
-** Last update Thu Apr 20 08:47:32 2017 Bender_Jr
+** Last update Thu Apr 20 14:31:36 2017 Bender_Jr
 */
 
 #ifndef BUILTINS_H_
@@ -22,7 +22,7 @@
 ** develloped then named
 */
 #ifndef BLTS_NAMES
-# define BLTS_NAMES "cd,echo"
+# define BLTS_NAMES "cd,echo,clear"
 # endif /* !BLTS_NAMES */
 
 typedef int	(*builtins)(char **bfr);

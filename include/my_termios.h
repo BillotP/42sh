@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 09:56:53 2017 Bender_Jr
-** Last update Tue Apr 18 10:35:44 2017 Bender_Jr
+** Last update Thu Apr 20 14:44:12 2017 Bender_Jr
 */
 
 #ifndef MY_TERMIOS_H_
@@ -24,7 +24,7 @@ typedef struct		s_termios {
   struct termios	new;
   struct termios	save;
   const char		*prompt_frmat;
-  int			tty_fd;
+  int	volatile	tty_fd;
 }			t_termios;
 
 /*

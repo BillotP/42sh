@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Thu Apr 20 10:58:52 2017 Bender_Jr
+** Last update Thu Apr 20 12:59:20 2017 Bender_Jr
 */
 
 /*
@@ -14,6 +14,10 @@
 ** the exec job
 */
 # include <stdio.h>
+/*
+** for sig handler
+*/
+#include <signal.h>
 /*
 ** for strerror and errno
 */
@@ -55,13 +59,15 @@ int		run()
     return (1);
   while ((tmp = get_next_line(list.tty_fd)))
     {
-      rt = 0;
-      if (tmp && (is_legitstr(tmp, LEGIT_CHAR)) >= 0)
+      if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
 	{
 	  bfr = strto_wordtab(tmp, " ");
 	  if ((rt = is_builtins(bfr, &ptr)) == -1 ||
 	      (!rt && (rt = exec(tmp)) == -1))
-	    p_printf(2, "%s%s\n", ERR, strerror(errno));
+	    {
+	      rt = 1;
+	      p_printf(2, "%s%s\n", ERR, strerror(errno));
+	    }
 	}
       pr_printf(list.prompt_frmat);
       free(tmp);
@@ -71,10 +77,23 @@ int		run()
   return (rt != 1 ? 1 : 0);
 }
 
-int		main()
+void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
 {
-  int		rt;
+  if (signum)
+    p_printf(1, "\nreceive signal %d from pid %d\n", signum,
+	     info->si_pid);
+}
 
+int			main()
+{
+  int			rt;
+  struct sigaction	new;
+
+  new.sa_sigaction = sig_handler;
+  sigemptyset(&new.sa_mask);
+  new.sa_flags = SA_SIGINFO;
+  sigaction(SIGINT, &new, NULL);
+  sigaction(SIGQUIT, &new, NULL);
   rt = run();
   return (rt);
 }
