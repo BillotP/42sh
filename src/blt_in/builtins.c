@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Wed Apr 19 21:49:42 2017 Bender_Jr
+** Last update Thu Apr 20 10:54:31 2017 Bender_Jr
 */
 
 # include "builtins.h"
@@ -55,8 +55,7 @@ int		is_builtins(char **cmd, t_blts *ptr)
   j = tab_len(ptr->blts_names);
   while (i != j)
     {
-      if (strn_cmp(cmd[0], ptr->blts_names[i],
-	len(ptr->blts_names[i])))
+      if (strn_cmp(cmd[0], ptr->blts_names[i], len(cmd[0])))
 	if ((rt = ptr->btptr[i](cmd)))
 	  return (freetab(cmd), rt);
       i++;

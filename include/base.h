@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Sat Apr 15 13:55:16 2017 Bender_Jr
+** Last update Thu Apr 20 10:13:28 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -34,6 +34,10 @@ abcdefghijklmnopqrstuvwxyz\
 !#,:`'*.=$-+/\\()?%~>\"@"
 # endif /* !LEGIT_CHAR */
 
+#ifndef LEGIT_VARCHAR
+#define  LEGIT_VARCHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
+-abcdefghijklmnopqrstuvwxyz"
+# endif /* !LEGIT_VARCHAR */
 /*
 ** string*.c
 */
@@ -63,7 +67,8 @@ char	*epurstr(char *str, int c);
 /*
 ** check.c
 */
-int		is_legitchar(char c);
-int		is_legitstr(char *str);
+int		is_legitchar(char c, const char *reference);
+int		is_legitstr(char *str, const char *reference);
+int		get_chksum(void *);
 
 #endif /* !BASE_H_ */
