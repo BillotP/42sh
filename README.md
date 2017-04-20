@@ -1,4 +1,21 @@
 # README #
+                                                  
+        ,--,                                 ,--, 
+      ,--.'|      ,----,   .--.--.         ,--.'| 
+   ,--,  | :    .'   .' \ /  /    '.    ,--,  | : 
+,---.'|  : '  ,----,'    |  :  /`. / ,---.'|  : ' 
+;   : |  | ;  |    :  .  ;  |  |--`  |   | : _' | 
+|   | : _' |  ;    |.'  /|  :  ;_    :   : |.'  | 
+:   : |.'  |  `----'/  ;  \  \    `. |   ' '  ; : 
+|   ' '  ; :    /  ;  /    `----.   \'   |  .'. | 
+\   \  .'. |   ;  /  /-,   __ \  \  ||   | :  | ' 
+ `---`:  | '  /  /  /.`|  /  /`--'  /'   : |  : ; 
+      '  ; |./__;      : '--'.     / |   | '  ,/  
+      |  : ;|   :    .'    `--'---'  ;   : ;--'   
+      '  ,/ ;   | .'                 |   ,/       
+      '--'  `---'                    '---'        
+                                                  
+
 
 Hello world this is the official working repo for the 42 sh 
 project (working repo the official one will be filled when we
@@ -6,8 +23,8 @@ got a working master here).
 
 Bitbucket is just a  "simple git " repo but with cool interface
 
-NOTE : j'ai avancé sur un parser de conf vous pouvez le tester avec
-un "make parser" et ./parser ressources/conf.42shrc
+Edit(20.04) : J'ai ajouté une base de travail pour les builtins, un ti pointeur sur fonction ! si vous voulez travailler sur des builtins (moi j'ai foutu cd et echo mais c'est de la merde pour le moment ) demandez moi !
+ 
 Paul
 ### What is this repository for? ###
 
