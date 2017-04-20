@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Tue Apr 18 10:33:32 2017 Bender_Jr
+## Last update Wed Apr 19 19:37:51 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -58,6 +58,7 @@ SRC_S		= $(SRCS)			\
 		src/prompt_print/prompt.c	\
 		src/prompt_print/pr_printf.c	\
 		src/termios/termios.c		\
+		src/blt_in/builtins.c		\
 		src/main.c
 
 SRC_P		= $(SRCS)				\
@@ -81,7 +82,7 @@ $(TEST):	$(OBJ_P)
 $(NAME):	$(OBJ_S)
 		$(CC) $(OBJ_S) -o $(NAME) $(LDFLAGS)
 
-dbgsh:
+dbg:
 		$(CC)  $(DFLAGS) -g3 -D DEBUG $(SRC_S) -o $(NAME)
 
 dbgpars:

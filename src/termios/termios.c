@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Tue Apr 18 10:39:39 2017 Bender_Jr
+** Last update Wed Apr 19 20:56:54 2017 Bender_Jr
 */
 
 /*
@@ -76,27 +76,3 @@ int	init_term(t_termios *list)
     list->tty_fd = STDIN_FILENO;
   return (0);
 }
-
-/* int			main() */
-/* { */
-/*   char			bfr[4096]; */
-/*   t_termios		list; */
-/*   ssize_t		rd; */
-/*   int			rt; */
-
-/*   rt = 0; */
-/*   if ((rt = init_term(&list)) == -1) */
-/*     return (1); */
-/*   if (isatty(list.tty_fd)) */
-/*     p_printf(1, "toto >> "); */
-/*   while ((rd = read(list.tty_fd, bfr, 4095))) */
-/*     { */
-/*       bfr[rd] = 0; */
-/*       if ((rt = exec(bfr)) == -1) */
-/* 	return (reset_cap(&(list).save, list.tty_fd), rt); */
-/*       if (isatty(list.tty_fd)) */
-/* 	p_printf(1, "toto >> "); */
-/*     } */
-/*   reset_cap(&(list).save, list.tty_fd); */
-/*   return (rt); */
-/* } */
