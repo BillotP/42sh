@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Thu Apr 20 14:41:09 2017 Bender_Jr
+** Last update Fri Apr 21 20:16:07 2017 Bender_Jr
 */
 
 /*
@@ -34,7 +34,7 @@ int		set_cap(struct termios *new, int tty_fd)
   new->c_iflag &= ~(IGNBRK | BRKINT);
   new->c_lflag = (ICANON | IEXTEN | ISIG | ECHOE | ECHO);
   new->c_cc[VINTR] = 3;
-  new->c_cc[VERASE] = 23;
+  new->c_cc[VERASE] = 127;
   new->c_cc[VQUIT] = 0x21;
   new->c_cc[VSUSP] = 0x1A;
   new->c_cc[VWERASE] = 0x17;

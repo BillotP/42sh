@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Thu Apr 20 14:57:00 2017 Bender_Jr
+** Last update Fri Apr 21 19:30:38 2017 Bender_Jr
 */
 
 # include "builtins.h"
@@ -35,21 +35,11 @@ int		cd(char **cmd)
   return (1);
 }
 
-# include <stdio.h>
-
 int		clear(UNUSED char **cmd)
 {
-  /* int		i; */
-  char		clear[5] ={27, '[', '2', '0'};
-
-  i = 0;
-  while (clear[i])
-    {
-      if (write(tty_fd, &clear[i], 1) == -1)
-  	return (-1);
-      i++;
-    }
-  /* printf("%s", clear); */
+  if (write(1, "\033[1J", len("\033[1J")) == -1 ||
+      write(1, "\033[H", len("\033[H")) == -1)
+    return (-1);
   return (1);
 }
 void		fill_builtins(t_blts *list)

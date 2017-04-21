@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Thu Apr 20 12:59:20 2017 Bender_Jr
+** Last update Fri Apr 21 19:40:37 2017 Bender_Jr
 */
 
 /*
@@ -56,7 +56,7 @@ int		run()
   list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
   fill_builtins(&ptr);
   if ((rt = init_term(&list)) == -1)
-    return (1);
+    return (-1);
   while ((tmp = get_next_line(list.tty_fd)))
     {
       if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
@@ -64,17 +64,14 @@ int		run()
 	  bfr = strto_wordtab(tmp, " ");
 	  if ((rt = is_builtins(bfr, &ptr)) == -1 ||
 	      (!rt && (rt = exec(tmp)) == -1))
-	    {
-	      rt = 1;
-	      p_printf(2, "%s%s\n", ERR, strerror(errno));
-	    }
+	    p_printf(2, "%s%s\n", ERR, strerror(errno));
 	}
       pr_printf(list.prompt_frmat);
       free(tmp);
     }
   freetab(ptr.blts_names);
   reset_cap(&(list).save, list.tty_fd);
-  return (rt != 1 ? 1 : 0);
+  return (rt == 1 ? 0 : -1);
 }
 
 void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
@@ -94,6 +91,5 @@ int			main()
   new.sa_flags = SA_SIGINFO;
   sigaction(SIGINT, &new, NULL);
   sigaction(SIGQUIT, &new, NULL);
-  rt = run();
-  return (rt);
+  return (((rt = run()) == -1) ? 1 : 0);
 }
