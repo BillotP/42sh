@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Sat Apr 22 10:41:17 2017 Bender_Jr
+** Last update Sat Apr 22 13:23:55 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -28,6 +28,12 @@
 # include "strtowordtab.h"
 # include "printf.h"
 # include "errors.h"
+
+/*
+** for termios and btptr typedef
+*/
+# include "my_termios.h"
+# include "builtins.h"
 
 /*
 ** check_str valid char
@@ -54,6 +60,14 @@ abcdefghijklmnopqrstuvwxyz\
 ** return value volatile glob var
 */
 int volatile	g_rt;
+
+/*
+** shell main struct (to be moved later)
+*/
+typedef struct		s_shell {
+  t_termios		term;
+  t_blts		blts;
+}			t_shell;
 
 /*
 ** string*.c

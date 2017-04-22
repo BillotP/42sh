@@ -5,19 +5,12 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 12:36:09 2017 Bender_Jr
+** Last update Sat Apr 22 13:31:41 2017 Bender_Jr
 */
 
 /*
-** for popen (will be removed)
-** when scripting will do
-** the exec job
+** for wait
 */
-# include <stdio.h>
-/*
-** for sig handler and wait
-*/
-# include <signal.h>
 # include <sys/wait.h>
 
 /*
@@ -27,8 +20,6 @@
 # include <errno.h>
 # include <stdlib.h>
 # include "prompt.h"
-# include "builtins.h"
-# include "my_termios.h"
 # include "base.h"
 # include "get_next_line.h"
 
@@ -57,53 +48,43 @@ int		 exec(char **argv)
   return (1);
 }
 
-int		run()
+int		run(t_shell *ptr)
 {
-  t_termios	list;
-  t_blts	ptr;
   char		*tmp;
   char		**bfr;
 
   g_rt = 0;
-  list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
-  fill_builtins(&ptr);
-  if ((g_rt = init_term(&list)) == -1)
-    return (-1);
-  while ((tmp = get_next_line(list.tty_fd)))
+  while ((tmp = get_next_line(ptr->term.tty_fd)))
     {
       if (!(tmp[0] == '\033'))
 	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
 	  {
 	    bfr = strto_wordtab(tmp, " ");
-	    if ((g_rt = is_builtins(bfr, &ptr)) == -1 ||
+	    if ((g_rt = is_builtins(bfr, &(ptr)->blts)) == -1 ||
 		(!g_rt && (g_rt = exec(bfr)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	    else if (g_rt > 1)
-	      return (free(tmp), clean_exit(&list, ptr.blts_names));
+	      return (free(tmp), clean_exit(&(ptr)->term, ptr->blts.blts_names));
 	  }
       g_rt =  (g_rt == 1 || g_rt == 0) ? 0 : 1;
-      pr_printf(list.prompt_frmat);
+      pr_printf(ptr->term.prompt_frmat);
       free(tmp);
     }
-  return (g_rt = clean_exit(&list, ptr.blts_names));
-}
-
-void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
-{
-  if (signum)
-    p_printf(1, "\nreceive signal %d from pid %d\n", signum,
-	     info->si_pid);
+  return (g_rt = clean_exit(&(ptr)->term, ptr->blts.blts_names));
 }
 
 int			main()
 {
-  struct sigaction	new;
+  t_shell		toto;
+  t_termios		list;
+  t_blts		ptr;
 
-  new.sa_sigaction = sig_handler;
-  sigemptyset(&new.sa_mask);
-  new.sa_flags = SA_SIGINFO;
-  sigaction(SIGINT, &new, NULL);
-  sigaction(SIGQUIT, &new, NULL);
-  run();
+  list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
+  fill_builtins(&ptr);
+  if ((g_rt = init_term(&list)) == -1)
+    return (1);
+  toto.term = list;
+  toto.blts = ptr;
+  run(&toto);
   return (g_rt);
 }

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sat Apr 22 13:07:29 2017 Bender_Jr
+** Last update Sat Apr 22 13:24:44 2017 Bender_Jr
 */
 
 # include "builtins.h"
@@ -66,7 +66,7 @@ int		clear(UNUSED char **cmd)
 */
 int		help(UNUSED char **cmd)
 {
-  if (write(1, HELP, len(HELP)) == -1)
+  if (write(1, "RTFM!\n", len("RTFM!\n")) == -1)
     return (-1);
   return (0);
 }
