@@ -5,15 +5,19 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 07:51:17 2017 Bender_Jr
-** Last update Sat Apr 15 17:42:43 2017 Bender_Jr
+** Last update Thu Apr 20 10:50:54 2017 Bender_Jr
 */
 
 /*
 ** for strerror, errno
-** free, and time funct.
+** free, passwd def and time funct.
 */
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <pwd.h>
 # include <string.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <time.h>
 # include "base.h"
@@ -26,47 +30,34 @@
 */
 # include "dict.h"
 
-int		set_hostname(char prompt_bfr[])
+int			set_username(char prompt_bfr[])
 {
-  char		*hostname;
-  extern char	**environ;
+  struct passwd		*tmp;
+  gid_t			uid;
 
-  if (tab_len(environ))
-    {
-      if ((hostname = secure_getenv("HOSTNAME")) == NULL)
-	{
-#ifdef DEBUG
-	  p_printf(2, "%sError prompt:%s\n\t%s%s%s\n",
-		   BLD, RST, RED, "$HOSTNAME not set", RST);
-#endif
-	  return (1);
-	}
-      else if (len(hostname) < PROMPT_SIZE && is_legitstr(hostname))
-	return (my_strcatvs(prompt_bfr, hostname), 1);
-    }
+  uid = getuid();
+  tmp = getpwuid(uid);
+  my_strcatvs(prompt_bfr, tmp->pw_name);
   return (1);
 }
 
-int	set_username(char prompt_bfr[])
-{
-  char		*username;
-  extern char	**environ;
+# define HOSTNAME "/etc/hostname"
 
-  if (tab_len(environ))
+int		set_hostname(char prompt_bfr[])
+{
+  char		tmp[MAX_NAME_LENGHT];
+  int		host_fd;
+
+  xmemset(tmp, '\0', MAX_NAME_LENGHT);
+  if ((host_fd = open(HOSTNAME, O_RDONLY)) == -1 ||
+      (read(host_fd, tmp, MAX_NAME_LENGHT)) == -1)
+    return (p_printf(2, "%s%s\n", ERR, strerror(errno)), -1);
+  else
     {
-      username = secure_getenv("USER");
-      if (username == NULL)
-	{
-#ifdef DEBUG
-	  p_printf(2, "%sError prompt:%s\n\t%s%s%s\n",
-		   BLD, RST, RED, "$USER not set", RST);
-#endif
-	  return (1);
-	}
-      else if (len(username) < PROMPT_SIZE && is_legitstr(username))
-	return (my_strcatvs(prompt_bfr, username), 1);
+      my_strcatvs(prompt_bfr, tmp);
+      return (close(host_fd), 1);
     }
-  return (1);
+  return  (1);
 }
 
 int		set_time(char prompt_bfr[])

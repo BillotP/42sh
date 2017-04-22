@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Tue Apr 18 10:40:04 2017 Bender_Jr
+** Last update Sat Apr 22 09:30:24 2017 Bender_Jr
 */
 
 /*
@@ -15,12 +15,17 @@
 */
 # include <stdio.h>
 /*
+** for sig handler
+*/
+#include <signal.h>
+/*
 ** for strerror and errno
 */
 # include <string.h>
 # include <errno.h>
 # include <stdlib.h>
 # include "prompt.h"
+# include "builtins.h"
 # include "my_termios.h"
 # include "base.h"
 # include "get_next_line.h"
@@ -39,24 +44,53 @@ int		 exec(char *buff)
   return (pclose(pipe) == 0 ? 0 : 1);
 }
 
-int		main()
+int		run()
 {
   t_termios	list;
-  int		rt;
+  t_blts	ptr;
+  int volatile	rt;
   char		*tmp;
+  char		**bfr;
 
   rt = 0;
-  list.prompt_frmat = "\033[94m%U\033[0m@%H \033[1m%~\033[0m >> ";
+  list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
+  fill_builtins(&ptr);
   if ((rt = init_term(&list)) == -1)
-    return (1);
+    return (-1);
   while ((tmp = get_next_line(list.tty_fd)))
     {
-      if ((rt = exec(tmp)) == -1)
-	return (reset_cap(&(list).save, list.tty_fd), rt);
-      if (isatty(list.tty_fd))
-	pr_printf(list.prompt_frmat);
+      if (!(tmp[0] == '\033'))
+	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
+	  {
+	    bfr = strto_wordtab(tmp, " ");
+	    if ((rt = is_builtins(bfr, &ptr)) == -1 ||
+		(!rt && (rt = exec(tmp)) == -1))
+	      p_printf(2, "%s%s\n", ERR, strerror(errno));
+	  }
+      pr_printf(list.prompt_frmat);
       free(tmp);
     }
+  freetab(ptr.blts_names);
   reset_cap(&(list).save, list.tty_fd);
-  return (rt);
+  return (rt == 1 || rt == 0 ? 0 : -1);
+}
+
+void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
+{
+  if (signum)
+    p_printf(1, "\nreceive signal %d from pid %d\n", signum,
+	     info->si_pid);
+}
+
+int			main()
+{
+  int			rt;
+  struct sigaction	new;
+
+  new.sa_sigaction = sig_handler;
+  sigemptyset(&new.sa_mask);
+  new.sa_flags = SA_SIGINFO;
+  sigaction(SIGINT, &new, NULL);
+  sigaction(SIGQUIT, &new, NULL);
+  return (((rt = run()) == -1) ? 1 : 0);
 }

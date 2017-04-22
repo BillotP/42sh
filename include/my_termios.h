@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 09:56:53 2017 Bender_Jr
-** Last update Tue Apr 18 10:35:44 2017 Bender_Jr
+** Last update Sat Apr 22 08:36:58 2017 Bender_Jr
 */
 
 #ifndef MY_TERMIOS_H_

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 21:51:27 2017 Bender_Jr
-** Last update Tue Apr 18 10:39:39 2017 Bender_Jr
+** Last update Sat Apr 22 09:18:58 2017 Bender_Jr
 */
 
 /*
@@ -32,9 +32,9 @@
 int		set_cap(struct termios *new, int tty_fd)
 {
   new->c_iflag &= ~(IGNBRK | BRKINT);
-  new->c_lflag |= (ICANON | ECHOE | IEXTEN | ISIG);
-  new->c_cc[VINTR] = 0x03;
-  new->c_cc[VERASE] = 0x7F;
+  new->c_lflag = (ICANON | IEXTEN | ISIG | ECHOE | ECHO);
+  new->c_cc[VINTR] = 3;
+  new->c_cc[VERASE] = 127;
   new->c_cc[VQUIT] = 0x21;
   new->c_cc[VSUSP] = 0x1A;
   new->c_cc[VWERASE] = 0x17;
@@ -76,27 +76,3 @@ int	init_term(t_termios *list)
     list->tty_fd = STDIN_FILENO;
   return (0);
 }
-
-/* int			main() */
-/* { */
-/*   char			bfr[4096]; */
-/*   t_termios		list; */
-/*   ssize_t		rd; */
-/*   int			rt; */
-
-/*   rt = 0; */
-/*   if ((rt = init_term(&list)) == -1) */
-/*     return (1); */
-/*   if (isatty(list.tty_fd)) */
-/*     p_printf(1, "toto >> "); */
-/*   while ((rd = read(list.tty_fd, bfr, 4095))) */
-/*     { */
-/*       bfr[rd] = 0; */
-/*       if ((rt = exec(bfr)) == -1) */
-/* 	return (reset_cap(&(list).save, list.tty_fd), rt); */
-/*       if (isatty(list.tty_fd)) */
-/* 	p_printf(1, "toto >> "); */
-/*     } */
-/*   reset_cap(&(list).save, list.tty_fd); */
-/*   return (rt); */
-/* } */

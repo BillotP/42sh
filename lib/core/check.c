@@ -5,23 +5,21 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Wed Apr 12 00:10:52 2017 Bender_Jr
-** Last update Sat Apr 15 13:49:54 2017 Bender_Jr
+** Last update Thu Apr 20 10:09:15 2017 Bender_Jr
 */
 
 # include "base.h"
 
-int	is_legitchar(char c)
+int	is_legitchar(char c, const char *reference)
 {
-  char	test[len(LEGIT_CHAR)];
   int	check;
   int	i;
 
   i = 0;
   check = 0;
-  my_strcpy(test, LEGIT_CHAR);
-  while (test[i])
+  while (reference[i] != '\0')
     {
-      if (c == test[i])
+      if (c == reference[i])
 	check += 1;
       i++;
     }
@@ -31,7 +29,7 @@ int	is_legitchar(char c)
   return ((check == 1) ? (check) : (-1));
 }
 
-int		is_legitstr(char *str)
+int		is_legitstr(char *str, const char *reference)
 {
   ssize_t	i;
   int		check;
@@ -40,9 +38,23 @@ int		is_legitstr(char *str)
   check = 0;
   while (str[i])
     {
-      if (is_legitchar(str[i]) == 1)
+      if (is_legitchar(str[i], reference) == 1)
 	check += 1;
       i++;
     }
   return ((check == i) ? (check) : (-1));
+}
+
+int	get_sum(void *header)
+{
+  int	sum;
+  int	len;
+  char	*ptr;
+
+  sum = 0;
+  ptr = (char *)header;
+  len = -1;
+  while (++len < 512)
+    sum += ptr[len];
+  return (sum);
 }

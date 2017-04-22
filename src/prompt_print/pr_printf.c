@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:00:54 2017 Bender_Jr
-** Last update Sat Apr 15 16:49:26 2017 Bender_Jr
+** Last update Thu Apr 20 10:31:41 2017 Bender_Jr
 */
 
 # include "prompt.h"
@@ -56,8 +56,7 @@ int		pr_printf(const char *format)
     {
       if (format[i] == '%' && fill_promptbfr(format[i + 1]))
 	i += 2;
-      if (is_legitchar(format[i]))
-	g_prompt[len(g_prompt)] =  format[i];
+      g_prompt[len(g_prompt)] =  format[i];
       i += 1;
     }
   if (isatty(0))
