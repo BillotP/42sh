@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Wed Apr 12 00:10:52 2017 Bender_Jr
-** Last update Thu Apr 20 10:09:15 2017 Bender_Jr
+** Last update Sat Apr 22 17:32:40 2017 Bender_Jr
 */
 
 # include "base.h"
@@ -45,16 +45,15 @@ int		is_legitstr(char *str, const char *reference)
   return ((check == i) ? (check) : (-1));
 }
 
-int	get_sum(void *header)
+unsigned long	get_sum(unsigned char *bfr)
 {
-  int	sum;
-  int	len;
-  char	*ptr;
+  unsigned long	sum;
+  unsigned char *ptr;
+  int		c;
 
   sum = 0;
-  ptr = (char *)header;
-  len = -1;
-  while (++len < 512)
-    sum += ptr[len];
+  ptr = bfr;
+  while ((c = *ptr++))
+    sum =  c + (sum << 6) + (sum << 16) + sum;
   return (sum);
 }

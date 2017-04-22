@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sat Apr 22 12:41:56 2017 Bender_Jr
+## Last update Sat Apr 22 14:42:32 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -62,13 +62,8 @@ SRC_S		= $(SRCS)			\
 		src/blt_in/is_builtins.c	\
 		src/main.c
 
-SRC_P		= $(SRCS)				\
-		src/scripting/fill_tree.c		\
-		src/scripting/get_keywrd.c		\
-		src/scripting/node_ops.c		\
-		src/scripting/tree.c			\
-		src/scripting/tree_utils.c		\
-		src/scripting/parser.c
+SRC_P		= $(SRCS) 		\
+		src/parslex/hash_path.c
 
 OBJ_S		= $(SRC_S:.c=.o)
 OBJ_P		= $(SRC_P:.c=.o)

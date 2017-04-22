@@ -5,14 +5,14 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sat Apr 22 13:24:44 2017 Bender_Jr
+** Last update Sat Apr 22 13:37:19 2017 Bender_Jr
 */
 
 # include "builtins.h"
 # include "base.h"
 
-/**
-** @NOTE :
+/*
+** NOTE :
 ** Les gars glandez pas ya du boulot
 ** sur les builtins tipiquement celui du dessous
 ** qui est à moitié faite

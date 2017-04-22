@@ -1,11 +1,11 @@
 /*
-** base.h for PSU_2016_42sh in /home/bender/LASTP/psu_2016_42sh
+1;4601;0c** base.h for PSU_2016_42sh in /home/bender/LASTP/psu_2016_42sh
 **
 ** Made by Bender_Jr
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Sat Apr 22 13:23:55 2017 Bender_Jr
+** Last update Sat Apr 22 17:07:32 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -16,9 +16,10 @@
 */
 # define UNUSED __attribute__((unused))
 /*
-** for ssize_t  typedef
+** for ssize_t  and uint8_t typedef
 */
 # include <unistd.h>
+# include <stdint.h>
 
 /*
 ** strtowortab, p_printf
@@ -100,6 +101,6 @@ char	*epurstr(char *str, int c);
 */
 int		is_legitchar(char c, const char *reference);
 int		is_legitstr(char *str, const char *reference);
-int		get_chksum(void *);
+unsigned long	get_sum(unsigned char *bfr);
 
 #endif /* !BASE_H_ */
