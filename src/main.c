@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 19:57:53 2017 Bender_Jr
+** Last update Sat Apr 22 20:39:43 2017 Bender_Jr
 */
 
 /*
@@ -32,21 +32,29 @@ int		clean_exit(t_shell *ptr)
   return (g_rt);
 }
 
-int		 exec(char **argv)
+int		exec(char **argv, t_shell *ptr)
 {
+  extern char	**environ;
+  char		*cmdpath;
   int		child_pid;
   int		parentpid;
   int		status;
 
-  if ((parentpid = getpid()) == -1 ||
+  g_rt = 0;
+  if ((cmdpath =
+       is_proginlist(ptr->pathlist, get_sum((unsigned char *)argv[0]))) == NULL
+      || (parentpid = getpid()) == -1 ||
       (child_pid = fork()) == -1)
     return (-1);
   else if (child_pid == 0)
-    execvp(argv[0], argv);
+    {
+      if ((execve(cmdpath, argv, environ)) || (errno))
+	g_rt = -1;
+    }
   else
     waitpid(child_pid, &status, 0);
   freetab(argv);
-  return (1);
+  return (g_rt);
 }
 
 int		run(t_shell *ptr)
@@ -62,12 +70,12 @@ int		run(t_shell *ptr)
 	  {
 	    bfr = strto_wordtab(tmp, " ");
 	    if ((g_rt = is_builtins(bfr, &(ptr)->blts)) == -1 ||
-		(!g_rt && (g_rt = exec(bfr)) == -1))
+		(!g_rt && (g_rt = exec(bfr, ptr)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	    else if (g_rt > 1)
 	      return (free(tmp), clean_exit(ptr));
 	  }
-      g_rt =  (g_rt == 1 || g_rt == 0) ? 0 : 1;
+      g_rt = (g_rt == 1 || g_rt == 0) ? 0 : 1;
       pr_printf(ptr->term.prompt_frmat);
       free(tmp);
     }
