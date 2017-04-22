@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 11:25:42 2017 Bender_Jr
+** Last update Sat Apr 22 11:57:18 2017 Bender_Jr
 */
 
 /*
@@ -15,9 +15,11 @@
 */
 # include <stdio.h>
 /*
-** for sig handler
+** for sig handler and wait
 */
-#include <signal.h>
+# include <signal.h>
+# include <sys/wait.h>
+
 /*
 ** for strerror and errno
 */
@@ -40,16 +42,21 @@ int		clean_exit(t_termios *list, char **tofree)
 
 int		 exec(char *buff)
 {
-  FILE		*pipe;
-  char		ptr[4096];
-  char		*tmp;
+  char		**argv;
+  int		child_pid;
+  int		parentpid;
+  int		status;
 
-  fflush(NULL);
-  if ((pipe = popen(buff, "r")) == NULL)
-    return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
-  while ((tmp = fgets(ptr, 4095, pipe)))
-    p_printf(1, "%s", tmp);
-  return (pclose(pipe) == 0 ? 0 : 1);
+  argv = strto_wordtab(buff, " ");
+  if ((parentpid = getpid()) == -1 ||
+      (child_pid = fork()) == -1)
+    return (-1);
+  else if (child_pid == 0)
+    execvp(buff, argv);
+  else
+    waitpid(child_pid, &status, 0);
+  freetab(argv);
+  return (1);
 }
 
 int		run()
