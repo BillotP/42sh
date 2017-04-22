@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 21:16:47 2017 Bender_Jr
+** Last update Sat Apr 22 22:47:42 2017 Bender_Jr
 */
 
 /*
@@ -27,6 +27,8 @@ int		clean_exit(t_shell *ptr)
 {
   freetab(ptr->blts.blts_names);
   free_list(ptr->pathlist);
+  close(ptr->history->histfilefd);
+  free_history(ptr->history);
   reset_cap(&(ptr)->term.save, ptr->term.tty_fd);
   g_rt = (g_rt == 2 ? (0) : (g_rt));
   return (g_rt);
@@ -87,7 +89,8 @@ int		run(t_shell *ptr)
 	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
 	  {
 	    bfr = strto_wordtab(tmp, " ");
-	    if ((g_rt = is_builtins(bfr, &(ptr)->blts)) == -1 ||
+	    if ((ptr->history = fill_history(ptr->history, tmp)) == NULL ||
+		(g_rt = is_builtins(bfr, &(ptr)->blts)) == -1 ||
 		(!g_rt && (g_rt = exec(bfr, ptr)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	    else if (g_rt > 1)
@@ -106,7 +109,8 @@ int			main()
 
   mescouilles.term.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
   fill_builtins(&(mescouilles).blts);
-  if ((g_rt = init_term(&(mescouilles).term)) == -1 ||
+  if ((mescouilles.history = init_history()) == NULL ||
+      (g_rt = init_term(&(mescouilles).term)) == -1 ||
       (mescouilles.pathlist = init_paths("/bin:/usr/bin")) == NULL ||
       (mescouilles.pathlist = fill_path(mescouilles.pathlist)) == NULL)
     return (1);

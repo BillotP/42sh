@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sat Apr 22 19:48:24 2017 Bender_Jr
+## Last update Sat Apr 22 22:38:16 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -62,10 +62,12 @@ SRC_S		= $(SRCS)			\
 		src/blt_in/is_builtins.c	\
 		src/parslex/hash_path.c		\
 		src/parslex/hashlist_utils.c	\
+		src/history/history.c		\
+		src/history/hist_utils.c	\
 		src/main.c
 
 SRC_P		= $(SRCS) 		\
-		src/parslex/hash_path.c
+		src/history/history.c
 
 OBJ_S		= $(SRC_S:.c=.o)
 OBJ_P		= $(SRC_P:.c=.o)

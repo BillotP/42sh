@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 13:45:32 2017 Bender_Jr
-** Last update Sat Apr 22 19:47:24 2017 Bender_Jr
+** Last update Sat Apr 22 21:44:35 2017 Bender_Jr
 */
 
 /*
@@ -87,18 +87,3 @@ t_path		*fill_path(t_path *path)
     }
   return (freetab(pathslist), path);
 }
-
-
-/* int		main(int ac, char **av) */
-/* { */
-/*   t_path	*path; */
-
-
-/*   if (ac == 1) */
-/*     print_list(path); */
-/*   else if (ac == 2) */
-/*     p_printf(1, "==> where is [%s] ?\n\there => [%s]\n", av[1], */
-/* 	     is_proginlist(path, get_sum((unsigned char *)av[1]))); */
-/*   free_list(path); */
-/*   return (0); */
-/* } */

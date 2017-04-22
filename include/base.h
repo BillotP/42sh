@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sat Apr 22 20:54:30 2017 Bender_Jr
+** Last update Sat Apr 22 22:43:30 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -82,10 +82,40 @@ typedef struct	s_path {
   t_vars	*lastvar;
 }		t_path;
 
+typedef struct	s_hist {
+  char		*cmd;
+  char		*timestamp;
+  int		order;
+  struct s_hist	*next;
+  struct s_hist	*prev;
+}		t_hist;
+
+/*
+** defines for histfile
+*/
+#ifndef HIST_FILE
+# define HIST_FILE	".42history"
+# endif /* !HIST_FILE */
+
+#ifndef HF_FLAG
+#define HF_FLAG		(O_RDWR | O_CREAT | O_APPEND)
+# endif /* !HF_FLAG */
+
+#ifndef HF_MODE
+# define HF_MODE	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+# endif /* !HF_MODE */
+
+typedef struct	s_history {
+  t_hist	*histfirst;
+  t_hist	*histlast;
+  int		histfilefd;
+}		t_history;
+
 typedef struct		s_shell {
   t_termios		term;
   t_blts		blts;
   t_path		*pathlist;
+  t_history		*history;
 }			t_shell;
 
 /*
@@ -102,6 +132,18 @@ t_path		*init_paths(const char *pathvar);
 char		*is_proginlist(const t_path *path, unsigned long checksum);
 void		free_list(t_path *ptr);
 
+/*
+** src/history/history.c
+*/
+t_history	*init_history();
+t_hist		*get_hist(const char *cmd);
+t_history	*fill_history(t_history *ptr, const char *cmd);
+int		write_histfile(t_history *ptr);
+/*
+** src/history/hist_utils.c
+*/
+void		free_history(t_history *ptr);
+void		print_history(t_history *ptr);
 /*
 ** lib/core/string*.c
 */
