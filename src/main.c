@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Fri Apr 21 19:40:37 2017 Bender_Jr
+** Last update Sat Apr 22 08:57:47 2017 Bender_Jr
 */
 
 /*
@@ -40,7 +40,7 @@ int		 exec(char *buff)
   if ((pipe = popen(buff, "r")) == NULL)
     return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
   while ((tmp = fgets(ptr, 4095, pipe)))
-    p_printf(1, "%s", tmp);
+    p_printf(1, "%s\033[M", tmp);
   return (pclose(pipe) == 0 ? 0 : 1);
 }
 
@@ -48,7 +48,7 @@ int		run()
 {
   t_termios	list;
   t_blts	ptr;
-  int		rt;
+  int volatile	rt;
   char		*tmp;
   char		**bfr;
 
@@ -71,7 +71,7 @@ int		run()
     }
   freetab(ptr.blts_names);
   reset_cap(&(list).save, list.tty_fd);
-  return (rt == 1 ? 0 : -1);
+  return (rt == 1 || rt == 0 ? 0 : -1);
 }
 
 void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
