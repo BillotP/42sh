@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 08:57:47 2017 Bender_Jr
+** Last update Sat Apr 22 09:30:24 2017 Bender_Jr
 */
 
 /*
@@ -40,7 +40,7 @@ int		 exec(char *buff)
   if ((pipe = popen(buff, "r")) == NULL)
     return (p_printf(2, "%s%s", ERR, strerror(errno)), -1);
   while ((tmp = fgets(ptr, 4095, pipe)))
-    p_printf(1, "%s\033[M", tmp);
+    p_printf(1, "%s", tmp);
   return (pclose(pipe) == 0 ? 0 : 1);
 }
 
@@ -59,13 +59,14 @@ int		run()
     return (-1);
   while ((tmp = get_next_line(list.tty_fd)))
     {
-      if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
-	{
-	  bfr = strto_wordtab(tmp, " ");
-	  if ((rt = is_builtins(bfr, &ptr)) == -1 ||
-	      (!rt && (rt = exec(tmp)) == -1))
-	    p_printf(2, "%s%s\n", ERR, strerror(errno));
-	}
+      if (!(tmp[0] == '\033'))
+	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
+	  {
+	    bfr = strto_wordtab(tmp, " ");
+	    if ((rt = is_builtins(bfr, &ptr)) == -1 ||
+		(!rt && (rt = exec(tmp)) == -1))
+	      p_printf(2, "%s%s\n", ERR, strerror(errno));
+	  }
       pr_printf(list.prompt_frmat);
       free(tmp);
     }

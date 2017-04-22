@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Fri Apr 21 19:30:38 2017 Bender_Jr
+** Last update Sat Apr 22 09:15:34 2017 Bender_Jr
 */
 
 # include "builtins.h"
@@ -37,8 +37,8 @@ int		cd(char **cmd)
 
 int		clear(UNUSED char **cmd)
 {
-  if (write(1, "\033[1J", len("\033[1J")) == -1 ||
-      write(1, "\033[H", len("\033[H")) == -1)
+  if (write(1, "\033[H", len("\033[H")) == -1 ||
+      write(1, "\033[2J", len("\033[2J")) == -1)
     return (-1);
   return (1);
 }
