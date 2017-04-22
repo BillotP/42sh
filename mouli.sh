@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Tue Apr 18 17:16:06 2017 Bender_Jr
+## Last update Sat Apr 22 09:40:31 2017 Bender_Jr
 ##
 
 # clean option (use with ./mouli.sh -c)
@@ -33,6 +33,10 @@ logdir='logz'
 testcmd[0]="ls -l"
 testcmd[1]="ls -la"
 testcmd[2]="stty -a"
+testcmd[3]="ls"
+testcmd[4]="echo toto"
+testcmd[5]="cd .."
+testcmd[6]="pwd"
 
 init_logtxt ()
 {
