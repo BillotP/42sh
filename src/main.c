@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 09:30:24 2017 Bender_Jr
+** Last update Sat Apr 22 10:32:37 2017 Bender_Jr
 */
 
 /*
@@ -48,14 +48,13 @@ int		run()
 {
   t_termios	list;
   t_blts	ptr;
-  int volatile	rt;
   char		*tmp;
   char		**bfr;
 
-  rt = 0;
+  g_rt = 0;
   list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
   fill_builtins(&ptr);
-  if ((rt = init_term(&list)) == -1)
+  if ((g_rt = init_term(&list)) == -1)
     return (-1);
   while ((tmp = get_next_line(list.tty_fd)))
     {
@@ -63,16 +62,17 @@ int		run()
 	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
 	  {
 	    bfr = strto_wordtab(tmp, " ");
-	    if ((rt = is_builtins(bfr, &ptr)) == -1 ||
-		(!rt && (rt = exec(tmp)) == -1))
+	    if ((g_rt = is_builtins(bfr, &ptr)) == -1 ||
+		(!g_rt && (g_rt = exec(tmp)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	  }
+      g_rt =  (g_rt == 1 || g_rt == 0) ? 0 : 1;
       pr_printf(list.prompt_frmat);
       free(tmp);
     }
   freetab(ptr.blts_names);
   reset_cap(&(list).save, list.tty_fd);
-  return (rt == 1 || rt == 0 ? 0 : -1);
+  return (g_rt);
 }
 
 void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
@@ -84,7 +84,6 @@ void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
 
 int			main()
 {
-  int			rt;
   struct sigaction	new;
 
   new.sa_sigaction = sig_handler;
@@ -92,5 +91,6 @@ int			main()
   new.sa_flags = SA_SIGINFO;
   sigaction(SIGINT, &new, NULL);
   sigaction(SIGQUIT, &new, NULL);
-  return (((rt = run()) == -1) ? 1 : 0);
+  run();
+  return (g_rt);
 }

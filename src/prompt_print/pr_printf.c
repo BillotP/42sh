@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:00:54 2017 Bender_Jr
-** Last update Thu Apr 20 10:31:41 2017 Bender_Jr
+** Last update Sat Apr 22 10:33:37 2017 Bender_Jr
 */
 
 # include "prompt.h"
@@ -60,6 +60,7 @@ int		pr_printf(const char *format)
       i += 1;
     }
   if (isatty(0))
-    p_printf(1, "%s", g_prompt);
+    g_rt == 0 ? p_printf(1, "%s", g_prompt) :
+      (p_printf(1, "%s%d%s %s", RED, g_rt, RST, g_prompt));
   return (0);
 }
