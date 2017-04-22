@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 11:57:18 2017 Bender_Jr
+** Last update Sat Apr 22 12:36:09 2017 Bender_Jr
 */
 
 /*
@@ -40,19 +40,17 @@ int		clean_exit(t_termios *list, char **tofree)
   return (g_rt);
 }
 
-int		 exec(char *buff)
+int		 exec(char **argv)
 {
-  char		**argv;
   int		child_pid;
   int		parentpid;
   int		status;
 
-  argv = strto_wordtab(buff, " ");
   if ((parentpid = getpid()) == -1 ||
       (child_pid = fork()) == -1)
     return (-1);
   else if (child_pid == 0)
-    execvp(buff, argv);
+    execvp(argv[0], argv);
   else
     waitpid(child_pid, &status, 0);
   freetab(argv);
@@ -78,7 +76,7 @@ int		run()
 	  {
 	    bfr = strto_wordtab(tmp, " ");
 	    if ((g_rt = is_builtins(bfr, &ptr)) == -1 ||
-		(!g_rt && (g_rt = exec(tmp)) == -1))
+		(!g_rt && (g_rt = exec(bfr)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	    else if (g_rt > 1)
 	      return (free(tmp), clean_exit(&list, ptr.blts_names));

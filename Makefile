@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Wed Apr 19 19:37:51 2017 Bender_Jr
+## Last update Sat Apr 22 12:41:56 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -59,6 +59,7 @@ SRC_S		= $(SRCS)			\
 		src/prompt_print/pr_printf.c	\
 		src/termios/termios.c		\
 		src/blt_in/builtins.c		\
+		src/blt_in/is_builtins.c	\
 		src/main.c
 
 SRC_P		= $(SRCS)				\

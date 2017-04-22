@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sat Apr 22 11:31:49 2017 Bender_Jr
+** Last update Sat Apr 22 13:07:29 2017 Bender_Jr
 */
 
 # include "builtins.h"
@@ -13,8 +13,9 @@
 
 /**
 ** @NOTE :
-** Les gars vous touchez pas ya du boulot
+** Les gars glandez pas ya du boulot
 ** sur les builtins tipiquement celui du dessous
+** qui est à moitié faite
 */
 int	echo(char **cmd)
 {
@@ -57,33 +58,15 @@ int		clear(UNUSED char **cmd)
   return (1);
 }
 
-void		fill_builtins(t_blts *list)
+/*
+** the help cmd will print
+** a list of builtins funct
+** and eventually the license
+** with some georgeous ascii art
+*/
+int		help(UNUSED char **cmd)
 {
-  char		**tmp;
-
-  tmp = strto_wordtab(BLTS_NAMES, ",");
-  list->blts_names = tmp;
-  list->btptr[0] = cd;
-  list->btptr[1] = echo;
-  list->btptr[2] = x_exit;
-  list->btptr[3] = clear;
-}
-
-int		is_builtins(char **cmd, t_blts *ptr)
-{
-  int		i;
-  int		j;
-  int		rt;
-
-  i = 0;
-  rt = 0;
-  j = tab_len(ptr->blts_names);
-  while (i != j)
-    {
-      if (strn_cmp(cmd[0], ptr->blts_names[i], len(cmd[0])))
-	if ((rt = ptr->btptr[i](cmd)))
-	  return (freetab(cmd), rt);
-      i++;
-    }
-  return (freetab(cmd), rt);
+  if (write(1, HELP, len(HELP)) == -1)
+    return (-1);
+  return (0);
 }
