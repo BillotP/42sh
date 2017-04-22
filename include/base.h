@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Sat Apr 22 17:07:32 2017 Bender_Jr
+** Last update Sat Apr 22 19:49:32 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -63,12 +63,42 @@ abcdefghijklmnopqrstuvwxyz\
 int volatile	g_rt;
 
 /*
-** shell main struct (to be moved later)
+** shell mains structs (to be moved later)
 */
+
+typedef struct	s_vars {
+  struct s_vars	*prev;
+  struct s_vars	*next;
+  char		*bin_name;
+  char		bin_path[PATH_MAX];
+  unsigned long	chksum;
+}		t_vars;
+
+typedef struct	s_path {
+  char		*path_var;
+  t_vars	*firstvar;
+  t_vars	*lastvar;
+}		t_path;
+
 typedef struct		s_shell {
   t_termios		term;
   t_blts		blts;
+  t_path		*pathlist;
 }			t_shell;
+
+/*
+** src/parslex/hash_path.c
+*/
+t_vars		*fill_vars(const char *bin_name, const char *dir_name);
+t_path		*get_vars(t_path *path, const char *bin_path, const char *dir_name);
+t_path		*fill_path(t_path *path);
+
+/*
+** src/parslex/hashlist_utils.c
+*/
+t_path		*init_paths(const char *pathvar);
+char		*is_proginlist(const t_path *path, unsigned long checksum);
+void		free_list(t_path *ptr);
 
 /*
 ** string*.c

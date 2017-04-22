@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sat Apr 22 14:42:32 2017 Bender_Jr
+## Last update Sat Apr 22 19:48:24 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -60,6 +60,8 @@ SRC_S		= $(SRCS)			\
 		src/termios/termios.c		\
 		src/blt_in/builtins.c		\
 		src/blt_in/is_builtins.c	\
+		src/parslex/hash_path.c		\
+		src/parslex/hashlist_utils.c	\
 		src/main.c
 
 SRC_P		= $(SRCS) 		\

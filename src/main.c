@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 13:31:41 2017 Bender_Jr
+** Last update Sat Apr 22 19:57:53 2017 Bender_Jr
 */
 
 /*
@@ -23,10 +23,11 @@
 # include "base.h"
 # include "get_next_line.h"
 
-int		clean_exit(t_termios *list, char **tofree)
+int		clean_exit(t_shell *ptr)
 {
-  freetab(tofree);
-  reset_cap(&(list)->save, list->tty_fd);
+  freetab(ptr->blts.blts_names);
+  free_list(ptr->pathlist);
+  reset_cap(&(ptr)->term.save, ptr->term.tty_fd);
   g_rt = (g_rt == 2 ? (0) : (g_rt));
   return (g_rt);
 }
@@ -64,27 +65,25 @@ int		run(t_shell *ptr)
 		(!g_rt && (g_rt = exec(bfr)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
 	    else if (g_rt > 1)
-	      return (free(tmp), clean_exit(&(ptr)->term, ptr->blts.blts_names));
+	      return (free(tmp), clean_exit(ptr));
 	  }
       g_rt =  (g_rt == 1 || g_rt == 0) ? 0 : 1;
       pr_printf(ptr->term.prompt_frmat);
       free(tmp);
     }
-  return (g_rt = clean_exit(&(ptr)->term, ptr->blts.blts_names));
+  return (g_rt = clean_exit(ptr));
 }
 
 int			main()
 {
-  t_shell		toto;
-  t_termios		list;
-  t_blts		ptr;
+  t_shell		mescouilles;
 
-  list.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
-  fill_builtins(&ptr);
-  if ((g_rt = init_term(&list)) == -1)
+  mescouilles.term.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
+  fill_builtins(&(mescouilles).blts);
+  if ((g_rt = init_term(&(mescouilles).term)) == -1 ||
+      (mescouilles.pathlist = init_paths("/bin:/usr/bin")) == NULL ||
+      (mescouilles.pathlist = fill_path(mescouilles.pathlist)) == NULL)
     return (1);
-  toto.term = list;
-  toto.blts = ptr;
-  run(&toto);
+  run(&mescouilles);
   return (g_rt);
 }
