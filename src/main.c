@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 20:39:43 2017 Bender_Jr
+** Last update Sat Apr 22 21:16:47 2017 Bender_Jr
 */
 
 /*
@@ -32,27 +32,45 @@ int		clean_exit(t_shell *ptr)
   return (g_rt);
 }
 
+int		check_status(pid_t son, int *stat_loc)
+{
+  while ((g_rt = (waitpid(son, stat_loc, WUNTRACED | WCONTINUED))))
+    {
+      if (g_rt == -1)
+	return (g_rt);
+      if (WIFEXITED(g_rt))
+	return (g_rt = 0);
+      else if (WIFSIGNALED(*stat_loc))
+	{
+	  if (WTERMSIG(*stat_loc) == 11)
+	    return (g_rt = 139);
+	  if (WTERMSIG(*stat_loc) == 8)
+	    return (g_rt = 136);
+	}
+      return (g_rt = 0);
+    }
+  return (g_rt = 0);
+}
+
 int		exec(char **argv, t_shell *ptr)
 {
   extern char	**environ;
   char		*cmdpath;
-  int		child_pid;
-  int		parentpid;
+  unsigned long	cksum;
+  pid_t		child_pid;
+  pid_t		parentpid;
   int		status;
 
   g_rt = 0;
-  if ((cmdpath =
-       is_proginlist(ptr->pathlist, get_sum((unsigned char *)argv[0]))) == NULL
-      || (parentpid = getpid()) == -1 ||
+  cksum = get_sum((unsigned char *)argv[0]);
+  if ((cmdpath = is_proginlist(ptr->pathlist, cksum)) == NULL ||
+      (parentpid = getpid()) == -1 ||
       (child_pid = fork()) == -1)
     return (-1);
   else if (child_pid == 0)
-    {
-      if ((execve(cmdpath, argv, environ)) || (errno))
-	g_rt = -1;
-    }
+    g_rt = ((execve(cmdpath, argv, environ)) || (errno)) ? (-1) : (0);
   else
-    waitpid(child_pid, &status, 0);
+    check_status(child_pid, &status);
   freetab(argv);
   return (g_rt);
 }
