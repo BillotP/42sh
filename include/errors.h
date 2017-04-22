@@ -1,11 +1,11 @@
 /*
-** errors.h for CPE_2016_corewar in /home/bender/Repo/CPE/CPE_2016_corewar/asm
+** errors.h for PSU_2016_42sh in /home/bender/42sh/work/PSU_2016_42sh
 **
 ** Made by Bender_Jr
 ** Login   <@epitech.eu>
 **
-** Started on  Mon Mar 20 19:08:06 2017 Bender_Jr
-** Last update Sat Apr 22 08:42:14 2017 Bender_Jr
+** Started on  Sat Apr 22 11:15:53 2017 Bender_Jr
+** Last update Sat Apr 22 11:17:14 2017 Bender_Jr
 */
 
 #ifndef ERRORS_H_
@@ -29,10 +29,14 @@
 
 #ifndef NAME_ERR
 # define NAME_ERR	"\033[31mNo such file or directory\033[0m"
-#endif /* NAME_ERR */
+# endif /* !NAME_ERR */
 
 #ifndef CMT_ERR
 #define CMT_ERR		"\033[31mInvalid comment\033[0m"
-#endif /* CMT_ERR */
+# endif /* !CMT_ERR */
 
-#endif /* ERRORS_H_ */
+#ifndef SYNTX_ERR
+#define SYNTX_ERR	"Expression Syntax.\n"
+# endif /* !SYNTX_ERR */
+
+#endif /* !ERRORS_H_ */

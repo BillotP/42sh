@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:34:43 2017 Bender_Jr
-** Last update Thu Apr 20 14:31:36 2017 Bender_Jr
+** Last update Sat Apr 22 11:02:06 2017 Bender_Jr
 */
 
 #ifndef BUILTINS_H_
@@ -22,7 +22,7 @@
 ** develloped then named
 */
 #ifndef BLTS_NAMES
-# define BLTS_NAMES "cd,echo,clear"
+# define BLTS_NAMES "cd,echo,exit,clear"
 # endif /* !BLTS_NAMES */
 
 typedef int	(*builtins)(char **bfr);
@@ -33,6 +33,8 @@ typedef struct	s_blts {
 
 int	cd(char **cmd);
 int	echo(char **cmd);
+int	x_exit(char **cmd);
+int	clear(char **cmd);
 
 void	fill_builtins(t_blts *list);
 int	is_builtins(char **cmd, t_blts *ptr);

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:28:48 2017 Bender_Jr
-** Last update Sat Apr 22 10:22:29 2017 Bender_Jr
+** Last update Sat Apr 22 10:41:17 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -42,6 +42,13 @@ abcdefghijklmnopqrstuvwxyz\
 #define  LEGIT_VARCHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
 -abcdefghijklmnopqrstuvwxyz"
 # endif /* !LEGIT_VARCHAR */
+
+/*
+** Limits values
+*/
+#ifndef PATH_MAX
+# define PATH_MAX (4096)
+# endif /* !PATH_MAX */
 
 /*
 ** return value volatile glob var

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Fri Apr 14 21:35:39 2017 Bender_Jr
-** Last update Sat Apr 22 10:32:37 2017 Bender_Jr
+** Last update Sat Apr 22 11:25:42 2017 Bender_Jr
 */
 
 /*
@@ -29,6 +29,14 @@
 # include "my_termios.h"
 # include "base.h"
 # include "get_next_line.h"
+
+int		clean_exit(t_termios *list, char **tofree)
+{
+  freetab(tofree);
+  reset_cap(&(list)->save, list->tty_fd);
+  g_rt = (g_rt == 2 ? (0) : (g_rt));
+  return (g_rt);
+}
 
 int		 exec(char *buff)
 {
@@ -65,14 +73,14 @@ int		run()
 	    if ((g_rt = is_builtins(bfr, &ptr)) == -1 ||
 		(!g_rt && (g_rt = exec(tmp)) == -1))
 	      p_printf(2, "%s%s\n", ERR, strerror(errno));
+	    else if (g_rt > 1)
+	      return (free(tmp), clean_exit(&list, ptr.blts_names));
 	  }
       g_rt =  (g_rt == 1 || g_rt == 0) ? 0 : 1;
       pr_printf(list.prompt_frmat);
       free(tmp);
     }
-  freetab(ptr.blts_names);
-  reset_cap(&(list).save, list.tty_fd);
-  return (g_rt);
+  return (g_rt = clean_exit(&list, ptr.blts_names));
 }
 
 void			sig_handler(int signum, siginfo_t *info, UNUSED void *context)
