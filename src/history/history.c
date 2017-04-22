@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 21:25:26 2017 Bender_Jr
-** Last update Sat Apr 22 22:50:51 2017 Bender_Jr
+** Last update Sat Apr 22 23:06:08 2017 Bender_Jr
 */
 
 /*
@@ -54,7 +54,7 @@ int		write_histfile(t_history *ptr)
 {
   if ((write(ptr->histfilefd, ptr->histlast->timestamp,
 	     len(ptr->histlast->timestamp) - 1)) == -1 ||
-      (write(ptr->histfilefd, " : ", 3)) == -1 ||
+      (write(ptr->histfilefd, ":", 1)) == -1 ||
       (write(ptr->histfilefd, ptr->histlast->cmd,
 	     len(ptr->histlast->cmd))) == -1 ||
       (write(ptr->histfilefd, "\n", 1)) == -1)
