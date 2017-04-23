@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sat Apr 22 22:43:30 2017 Bender_Jr
+** Last update Sun Apr 23 08:48:16 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -111,11 +111,20 @@ typedef struct	s_history {
   int		histfilefd;
 }		t_history;
 
+typedef struct		s_exec {
+  char			*cmdpath;
+  unsigned long		cksum;
+  pid_t			child_pid;
+  pid_t			parentpid;
+  int			status;
+}			t_exec;
+
 typedef struct		s_shell {
   t_termios		term;
   t_blts		blts;
   t_path		*pathlist;
   t_history		*history;
+  char			**environ;
 }			t_shell;
 
 /*
