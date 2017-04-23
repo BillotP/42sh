@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sun Apr 23 08:48:16 2017 Bender_Jr
+** Last update Sun Apr 23 11:27:10 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -24,108 +24,17 @@
 **  Paul
 **  lead developer
 */
+# include "decl.h"
 # include "strtowordtab.h"
 # include "printf.h"
 # include "errors.h"
 
 /*
-** for debug and signal handler context
-*/
-# define UNUSED __attribute__((unused))
-
-/*
 ** for termios and btptr typedef
 */
 # include "my_termios.h"
+# include "prompt.h"
 # include "builtins.h"
-
-/*
-** check_str valid char
-*/
-#ifndef LEGIT_CHAR
-# define LEGIT_CHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
-abcdefghijklmnopqrstuvwxyz\
-!#,:`'*.=$-+/\\()?%~>\"@]["
-# endif /* !LEGIT_CHAR */
-
-#ifndef LEGIT_VARCHAR
-#define  LEGIT_VARCHAR "0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ \
--abcdefghijklmnopqrstuvwxyz"
-# endif /* !LEGIT_VARCHAR */
-
-/*
-** Limits values
-*/
-#ifndef PATH_MAX
-# define PATH_MAX (4096)
-# endif /* !PATH_MAX */
-
-/*
-** return value volatile glob var
-*/
-int volatile	g_rt;
-
-/*
-** shell mains structs (to be moved later)
-*/
-typedef struct	s_vars {
-  struct s_vars	*prev;
-  struct s_vars	*next;
-  char		*bin_name;
-  char		bin_path[PATH_MAX];
-  unsigned long	chksum;
-}		t_vars;
-
-typedef struct	s_path {
-  char		*path_var;
-  t_vars	*firstvar;
-  t_vars	*lastvar;
-}		t_path;
-
-typedef struct	s_hist {
-  char		*cmd;
-  char		*timestamp;
-  int		order;
-  struct s_hist	*next;
-  struct s_hist	*prev;
-}		t_hist;
-
-/*
-** defines for histfile
-*/
-#ifndef HIST_FILE
-# define HIST_FILE	".42history"
-# endif /* !HIST_FILE */
-
-#ifndef HF_FLAG
-#define HF_FLAG		(O_RDWR | O_CREAT | O_APPEND)
-# endif /* !HF_FLAG */
-
-#ifndef HF_MODE
-# define HF_MODE	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
-# endif /* !HF_MODE */
-
-typedef struct	s_history {
-  t_hist	*histfirst;
-  t_hist	*histlast;
-  int		histfilefd;
-}		t_history;
-
-typedef struct		s_exec {
-  char			*cmdpath;
-  unsigned long		cksum;
-  pid_t			child_pid;
-  pid_t			parentpid;
-  int			status;
-}			t_exec;
-
-typedef struct		s_shell {
-  t_termios		term;
-  t_blts		blts;
-  t_path		*pathlist;
-  t_history		*history;
-  char			**environ;
-}			t_shell;
 
 /*
 ** src/parslex/hash_path.c
@@ -148,11 +57,34 @@ t_history	*init_history();
 t_hist		*get_hist(const char *cmd);
 t_history	*fill_history(t_history *ptr, const char *cmd);
 int		write_histfile(t_history *ptr);
+
 /*
 ** src/history/hist_utils.c
 */
 void		free_history(t_history *ptr);
 void		print_history(t_history *ptr);
+
+/*
+** src/env_ctrl/envlist.c
+*/
+t_envar		*get_envar(char *fullenvar);
+t_environ	*init_environ(char **environ);
+t_environ	*fill_env(t_environ *ptr, char *newenvar);
+
+/*
+** src/env_ctrl/env_fctions.c
+*/
+int		env(char **cmd, void *ptr);
+void		free_env(t_environ *ptr);
+
+/*
+** src/run_exec.c
+*/
+int		clean_exit(t_shell *ptr);
+int		check_status(pid_t son, int *stat_loc);
+int		exec(char **argv, t_shell *ptr);
+int		run(t_shell *ptr);
+
 /*
 ** lib/core/string*.c
 */

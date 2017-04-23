@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sat Apr 22 22:38:16 2017 Bender_Jr
+## Last update Sun Apr 23 10:43:43 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -64,6 +64,9 @@ SRC_S		= $(SRCS)			\
 		src/parslex/hashlist_utils.c	\
 		src/history/history.c		\
 		src/history/hist_utils.c	\
+		src/env_ctrl/env_fctions.c	\
+		src/env_ctrl/envlist.c		\
+		src/run_exec.c			\
 		src/main.c
 
 SRC_P		= $(SRCS) 		\

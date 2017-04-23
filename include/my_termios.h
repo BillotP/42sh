@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 09:56:53 2017 Bender_Jr
-** Last update Sat Apr 22 08:36:58 2017 Bender_Jr
+** Last update Sun Apr 23 11:11:55 2017 Bender_Jr
 */
 
 #ifndef MY_TERMIOS_H_
@@ -14,18 +14,7 @@
 ** for struct termios typedef
 */
 # include <termios.h>
-
-/*
-** note : the prompt format
-** will be move in the conf file
-** later on
-*/
-typedef struct		s_termios {
-  struct termios	new;
-  struct termios	save;
-  const char		*prompt_frmat;
-  int			tty_fd;
-}			t_termios;
+# include "decl.h"
 
 /*
 ** src/termios/termios.c

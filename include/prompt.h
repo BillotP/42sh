@@ -5,23 +5,21 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 15 08:03:08 2017 Bender_Jr
-** Last update Tue Apr 18 10:29:56 2017 Bender_Jr
+** Last update Sun Apr 23 11:15:00 2017 Bender_Jr
 */
 
 #ifndef PROMPT_H_
 # define PROMPT_H_
 
 /*
+** typdefs :
+*/
+# include "decl.h"
+
+/*
 ** size_t typedef
 */
 typedef unsigned long size_t;
-
-/*
-** Prompt size define
-*/
-#ifndef PROMPT_SIZE
-# define PROMPT_SIZE (126)
-# endif /* !PROMPT_SIZE */
 
 /*
 ** max path len (to be moved
@@ -31,16 +29,6 @@ typedef unsigned long size_t;
 # define PATH_SIZE (4096)
 # endif /* !PATH_SIZE */
 
-/*
-** prompt glob_var
-*/
-char	g_prompt[PROMPT_SIZE];
-
-/*
-** prompt_printf(fction ptr)
-*/
-typedef int (*flags_fct)(char prompt_bfr[]);
-extern flags_fct ptr[];
 /*
 ** prompt_printf flags list
 */

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 22:32:04 2017 Bender_Jr
-** Last update Wed Apr 12 07:44:07 2017 Bender_Jr
+** Last update Sun Apr 23 10:30:30 2017 Bender_Jr
 */
 
 #ifndef TREE_H_
@@ -58,7 +58,6 @@ t_tree		*fill_node(t_tree *tree, int data, char *str,
 ** srcs/fill_tree.c
 */
 void		clean_tree(t_tree *tofree);
-int		clean_exit(char *bfr, t_tree *tree, int line);
 t_tree		*read_andfill(int fd, t_tree *tree);
 
 #endif /* !TREE_H_ */

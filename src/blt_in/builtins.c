@@ -5,19 +5,23 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sat Apr 22 13:37:19 2017 Bender_Jr
+** Last update Sun Apr 23 11:25:27 2017 Bender_Jr
 */
 
+/*
+** for getenv
+*/
+# include "stdlib.h"
 # include "builtins.h"
 # include "base.h"
 
 /*
 ** NOTE :
 ** Les gars glandez pas ya du boulot
-** sur les builtins tipiquement celui du dessous
+** sur les builtins tipiquement celle du dessous
 ** qui est à moitié faite
 */
-int	echo(char **cmd)
+int	echo(char **cmd, UNUSED void *ptr)
 {
   int	i;
 
@@ -31,14 +35,24 @@ int	echo(char **cmd)
   return (1);
 }
 
-int		cd(char **cmd)
+int		cd(char **cmd, UNUSED void *ptr)
 {
-  if (chdir(cmd[1]) == -1)
-    return (-1);
-  return (1);
+  if (tab_len(cmd) == 1)
+    {
+      if ((chdir(getenv("HOME")) == -1))
+	return (-1);
+      return (1);
+    }
+  else if (tab_len(cmd) == 2)
+    {
+      if (chdir(cmd[1]) == -1)
+	return (-1);
+      return (1);
+    }
+  return (p_printf(1, "cd: Too many arguments.\n"), 1);
 }
 
-int		x_exit(char **cmd)
+int		x_exit(char **cmd, UNUSED void *ptr)
 {
   if (cmd[1])
     {
@@ -50,7 +64,7 @@ int		x_exit(char **cmd)
   return (2);
 }
 
-int		clear(UNUSED char **cmd)
+int		clear(UNUSED char **cmd, UNUSED void *ptr)
 {
   if (write(1, "\033[H", len("\033[H")) == -1 ||
       write(1, "\033[2J", len("\033[2J")) == -1)
@@ -59,10 +73,9 @@ int		clear(UNUSED char **cmd)
 }
 
 /*
-** the help cmd will print
-** a list of builtins funct
-** and eventually the license
-** with some georgeous ascii art
+** the help cmd will...
+** rape ur cat in every
+** fcking hole (#saltylikepringle)
 */
 int		help(UNUSED char **cmd)
 {

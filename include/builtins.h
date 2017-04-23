@@ -5,37 +5,20 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:34:43 2017 Bender_Jr
-** Last update Sat Apr 22 11:02:06 2017 Bender_Jr
+** Last update Sun Apr 23 11:46:41 2017 Bender_Jr
 */
 
 #ifndef BUILTINS_H_
 # define BUILTINS_H_
 
-/*
-** Builtins Macro and Typedef
-*/
-/*
-** Set-unset-env
-** (will follow)
-*/
-/*
-** develloped then named
-*/
-#ifndef BLTS_NAMES
-# define BLTS_NAMES "cd,echo,exit,clear"
-# endif /* !BLTS_NAMES */
+# include "decl.h"
 
-typedef int	(*builtins)(char **bfr);
-typedef struct	s_blts {
-  char		**blts_names;
-  builtins	btptr[6];
-}		t_blts;
-
-int	cd(char **cmd);
-int	echo(char **cmd);
-int	x_exit(char **cmd);
-int	clear(char **cmd);
+int	cd(char **cmd, void  *ptr);
+int	echo(char **cmd, void *ptr);
+int	x_exit(char **cmd, void *ptr);
+int	clear(char **cmd, void *ptr);
 
 void	fill_builtins(t_blts *list);
-int	is_builtins(char **cmd, t_blts *ptr);
+int	is_builtins(char **cmd, t_shell *addr, t_blts *ptr);
+
 #endif /* !BUILTINS_H_ */

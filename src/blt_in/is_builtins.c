@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 12:39:34 2017 Bender_Jr
-** Last update Sat Apr 22 12:43:39 2017 Bender_Jr
+** Last update Sun Apr 23 11:45:54 2017 Bender_Jr
 */
 
 # include "base.h"
@@ -21,10 +21,11 @@ void		fill_builtins(t_blts *list)
   list->btptr[0] = cd;
   list->btptr[1] = echo;
   list->btptr[2] = x_exit;
-  list->btptr[3] = clear;
+  list->btptr[3] = env;
+  list->btptr[4] = clear;
 }
 
-int		is_builtins(char **cmd, t_blts *ptr)
+int		is_builtins(char **cmd, t_shell *addr, t_blts *ptr)
 {
   int		i;
   int		j;
@@ -34,7 +35,7 @@ int		is_builtins(char **cmd, t_blts *ptr)
   while (i != j)
     {
       if (strn_cmp(cmd[0], ptr->blts_names[i], len(cmd[0])))
-	if ((g_rt = ptr->btptr[i](cmd)))
+	if ((g_rt = ptr->btptr[i](cmd, addr)))
 	  return (freetab(cmd), g_rt);
       i++;
     }
