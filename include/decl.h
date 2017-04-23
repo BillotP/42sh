@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 11:01:17 2017 Bender_Jr
-** Last update Sun Apr 23 11:21:50 2017 Bender_Jr
+** Last update Sun Apr 23 12:14:59 2017 Bender_Jr
 */
 
 #ifndef DECL_H_
@@ -143,7 +143,7 @@ typedef struct		s_termios {
 ** develloped then named
 */
 #ifndef BLTS_NAMES
-# define BLTS_NAMES "cd,echo,exit,env,clear"
+# define BLTS_NAMES "cd,echo,exit,env,setenv,clear"
 # endif /* !BLTS_NAMES */
 
 typedef int		(*builtins)(char **bfr, void *ptr);

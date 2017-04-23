@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sun Apr 23 11:27:10 2017 Bender_Jr
+** Last update Sun Apr 23 12:17:23 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -75,6 +75,7 @@ t_environ	*fill_env(t_environ *ptr, char *newenvar);
 ** src/env_ctrl/env_fctions.c
 */
 int		env(char **cmd, void *ptr);
+int		xsetenv(char **cmd, void *ptr);
 void		free_env(t_environ *ptr);
 
 /*

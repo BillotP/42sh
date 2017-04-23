@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 12:39:34 2017 Bender_Jr
-** Last update Sun Apr 23 11:45:54 2017 Bender_Jr
+** Last update Sun Apr 23 12:17:43 2017 Bender_Jr
 */
 
 # include "base.h"
@@ -22,7 +22,8 @@ void		fill_builtins(t_blts *list)
   list->btptr[1] = echo;
   list->btptr[2] = x_exit;
   list->btptr[3] = env;
-  list->btptr[4] = clear;
+  list->btptr[4] = xsetenv;
+  list->btptr[5] = clear;
 }
 
 int		is_builtins(char **cmd, t_shell *addr, t_blts *ptr)
