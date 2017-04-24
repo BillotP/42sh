@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 10:17:57 2017 Bender_Jr
-** Last update Mon Apr 24 23:41:20 2017 Bender_Jr
+** Last update Tue Apr 25 00:07:42 2017 Bender_Jr
 */
 
 /*
@@ -31,7 +31,6 @@ int		clean_exit(t_shell *ptr)
   free_history(ptr->history);
   free_env(ptr->envlist);
   reset_cap(&(ptr)->term.save, ptr->term.tty_fd);
-  p_printf(1, "valeur des gloables : g_rt %d , g_exit %d\n", g_rt, g_exit);
   return (g_rt = (g_rt == 1 && g_exit == 1) ? 0 : g_rt);
 }
 
@@ -97,8 +96,7 @@ int		run(t_shell *ptr)
 	    if ((ptr->history = fill_history(ptr->history, tmp)) == NULL ||
 		(g_rt = is_builtins(bfr, ptr, &(ptr)->blts)) == -1 ||
 		(!g_rt && (g_rt = exec(bfr, ptr)) == -1))
-	      (errno) ? p_printf(2, "%s: %s\n", err, strerror(errno)) :
-		p_printf(2, "%s pointeur sur le message d'erreur des blts\n", ERR);
+	      (errno) ? p_printf(2, "%s: %s\n", err, strerror(errno)) : (errno);
 	    else if (g_exit >= 1)
 	      return (free(tmp), clean_exit(ptr));
 	  }
