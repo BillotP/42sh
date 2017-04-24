@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 10 09:35:17 2017 Bender_Jr
-** Last update Fri Apr 14 18:37:18 2017 Bender_Jr
+** Last update Sun Apr 23 19:17:40 2017 Bender_Jr
 */
 
 # include "base.h"
@@ -24,6 +24,7 @@ ssize_t		tab_len(char  **bfr)
   return (i);
 }
 
+#ifdef STD_C_99
 void		*my_memmove(void *dest, const void *src, size_t n)
 {
   char		*char_src;
@@ -48,6 +49,7 @@ void		*my_memmove(void *dest, const void *src, size_t n)
     }
   return (char_dest);
 }
+#endif
 
 char		*my_strncpy(char *dest, const char *src, size_t n)
 {

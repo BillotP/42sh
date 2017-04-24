@@ -5,13 +5,15 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 10:17:57 2017 Bender_Jr
-** Last update Sun Apr 23 11:47:17 2017 Bender_Jr
+** Last update Sun Apr 23 18:49:26 2017 Bender_Jr
 */
 
 /*
-** for wait
+** for wait and xaccess stat
 */
 # include <sys/wait.h>
+# include <sys/stat.h>
+
 /*
 ** for strerror, errno free, excve etc
 */
@@ -33,24 +35,16 @@ int		clean_exit(t_shell *ptr)
   return (g_rt);
 }
 
-int		check_status(pid_t son, int *stat_loc)
+int			xaccess(const char *pathname, UNUSED int mode)
 {
-  while ((g_rt = (waitpid(son, stat_loc, WUNTRACED | WCONTINUED))))
+  struct stat		sb;
+
+  if(!stat(pathname, &sb))
     {
-      if (g_rt == -1)
-	return (g_rt);
-      if (WIFEXITED(g_rt))
-	return (g_rt = 0);
-      else if (WIFSIGNALED(*stat_loc))
-	{
-	  if (WTERMSIG(*stat_loc) == 11)
-	    return (p_printf(2, "Segmentation fault (core dumped)\n"), g_rt = -139);
-	  else if (WTERMSIG(*stat_loc) == 8)
-	    return (p_printf(2, "Floating exception (core dumped)\n"), g_rt = -136);
-	}
-      return (g_rt = 0);
+      if(S_ISREG(sb.st_mode) && sb.st_mode & 0111)
+	return (0);
     }
-  return (g_rt = 0);
+  return (-1);
 }
 
 int		exec(char **argv, t_shell *ptr)
@@ -61,14 +55,14 @@ int		exec(char **argv, t_shell *ptr)
   xmemset(&execl, '\0', sizeof(execl));
   execl.cksum = get_sum((unsigned char *)argv[0]);
   if ((execl.cmdpath = is_proginlist(ptr->pathlist, execl.cksum)) == NULL &&
-      (access(argv[0], X_OK)) == -1)
+      (xaccess(argv[0], 1)) == -1)
     return (-1);
   if  ((execl.parentpid = getpid()) == -1 ||
        (execl.child_pid = fork()) == -1)
     return (-1);
   else if (execl.child_pid == 0)
     {
-      access(argv[0], X_OK) == 0 ? execl.cmdpath = argv[0] : execl.cmdpath;
+      !xaccess(argv[0], 1) ? execl.cmdpath = argv[0] : execl.cmdpath;
       g_rt = ((execve(execl.cmdpath, argv, ptr->environ)) || (errno)) ? (-1) : (0);
     }
   else
@@ -81,18 +75,22 @@ int		run(t_shell *ptr)
 {
   char		*tmp;
   char		**bfr;
+  char		err[PATH_MAX];
 
   while ((tmp = get_next_line(ptr->term.tty_fd)))
     {
       g_rt = 0;
+      xmemset(err, '\0', sizeof(err));
       if (!(tmp[0] == '\033'))
 	if (tmp && (is_legitstr(tmp = epurstr(tmp, ' '), LEGIT_CHAR)) >= 0)
 	  {
 	    bfr = strto_wordtab(tmp, " ");
+	    (bfr[1]) ? my_strcpy(err, bfr[1]) : my_strcpy(err, bfr[0]);
 	    if ((ptr->history = fill_history(ptr->history, tmp)) == NULL ||
 		(g_rt = is_builtins(bfr, ptr, &(ptr)->blts)) == -1 ||
 		(!g_rt && (g_rt = exec(bfr, ptr)) == -1))
-	      p_printf(2, "%s%s\n", ERR, strerror(errno));
+	      (errno) ? p_printf(2, "%s%s:%s\n", ERR, err, strerror(errno)) :
+		p_printf(2, "%s pointeur sur le message d'erreur des blts\n", ERR);
 	    else if (g_rt > 1)
 	      return (free(tmp), clean_exit(ptr));
 	    else if (g_rt < -1)

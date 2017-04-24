@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sun Apr 23 10:43:43 2017 Bender_Jr
+## Last update Sun Apr 23 19:14:48 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -26,7 +26,7 @@ RM		= @rm -f
 ##
 ## Release build Flags
 ##
-CFLAGS		+= -Wextra -Wall -Werror -std=gnu90
+CFLAGS		+= -Wextra -Wall -Werror -ansi -pedantic
 CFLAGS		+= -O2 -fstack-protector -fPIC
 CFLAGS		+= -D_FORTIFY_SOURCE=2
 CFLAGS		+= -I./include/
@@ -66,6 +66,7 @@ SRC_S		= $(SRCS)			\
 		src/history/hist_utils.c	\
 		src/env_ctrl/env_fctions.c	\
 		src/env_ctrl/envlist.c		\
+		src/status/status_handler.c	\
 		src/run_exec.c			\
 		src/main.c
 

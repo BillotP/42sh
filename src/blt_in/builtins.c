@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sun Apr 23 11:25:27 2017 Bender_Jr
+** Last update Sun Apr 23 17:46:26 2017 Bender_Jr
 */
 
 /*
@@ -49,7 +49,7 @@ int		cd(char **cmd, UNUSED void *ptr)
 	return (-1);
       return (1);
     }
-  return (p_printf(1, "cd: Too many arguments.\n"), 1);
+  return (-1);
 }
 
 int		x_exit(char **cmd, UNUSED void *ptr)

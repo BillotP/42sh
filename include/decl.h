@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 11:01:17 2017 Bender_Jr
-** Last update Sun Apr 23 12:14:59 2017 Bender_Jr
+** Last update Sun Apr 23 18:50:31 2017 Bender_Jr
 */
 
 #ifndef DECL_H_
@@ -108,6 +108,14 @@ typedef struct		s_environ {
   t_envar		*firstenvar;
   t_envar		*lastenvar;
 }			t_environ;
+
+/*
+** status message and rt val handler
+*/
+typedef struct	s_status {
+  int		rt;
+  char		msg[42];
+}		t_status;
 
 /*
 ** for pid_t type

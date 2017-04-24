@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sun Apr 23 12:17:23 2017 Bender_Jr
+** Last update Sun Apr 23 18:52:15 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -86,6 +86,11 @@ int		check_status(pid_t son, int *stat_loc);
 int		exec(char **argv, t_shell *ptr);
 int		run(t_shell *ptr);
 
+/*
+** src/status/status_handler.c
+*/
+void		get_status(struct s_status *ptr);
+int		check_status(pid_t son, int *stat_loc);
 /*
 ** lib/core/string*.c
 */

@@ -5,8 +5,13 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 13:45:32 2017 Bender_Jr
-** Last update Sat Apr 22 21:44:35 2017 Bender_Jr
+** Last update Sun Apr 23 19:14:22 2017 Bender_Jr
 */
+
+/*
+** for scandir
+*/
+# define _DEFAULT_SOURCE
 
 /*
 ** for scandir
