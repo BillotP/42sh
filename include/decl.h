@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 11:01:17 2017 Bender_Jr
-** Last update Sun Apr 23 18:50:31 2017 Bender_Jr
+** Last update Mon Apr 24 21:55:00 2017 Bender_Jr
 */
 
 #ifndef DECL_H_
@@ -46,6 +46,11 @@ abcdefghijklmnopqrstuvwxyz\
 ** return value volatile glob var
 */
 int volatile	g_rt;
+
+/*
+** exit bool
+*/
+int volatile    g_exit;
 
 /*
 **             =========
@@ -94,6 +99,13 @@ typedef struct	s_history {
   t_hist	*histlast;
   int		histfilefd;
 }		t_history;
+
+/*
+** Env macro if "virgin" extern env
+*/
+#ifndef SH_ENV
+# define SH_ENV	"PATH=/bin:/usr/bin,SHELL=42sh"
+# endif /* !SH_ENV */
 
 typedef struct		s_envar {
   char			*variable;

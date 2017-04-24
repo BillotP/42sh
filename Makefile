@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Mon Apr 10 09:27:20 2017 Bender_Jr
-## Last update Sun Apr 23 19:14:48 2017 Bender_Jr
+## Last update Mon Apr 24 21:05:38 2017 Bender_Jr
 ##
 
 uname_s := $(shell uname -srm)
@@ -45,6 +45,8 @@ TEST		= parser
 SRCS		= lib/core/base.c		\
 		lib/core/base2.c		\
 		lib/core/check.c		\
+		lib/core/fprintf.c		\
+		lib/core/f_fction.c		\
 		lib/core/flag_match.c		\
 		lib/core/flgs.c			\
 		lib/core/get_next_line.c	\
@@ -65,6 +67,7 @@ SRC_S		= $(SRCS)			\
 		src/history/history.c		\
 		src/history/hist_utils.c	\
 		src/env_ctrl/env_fctions.c	\
+		src/env_ctrl/env_utils.c	\
 		src/env_ctrl/envlist.c		\
 		src/status/status_handler.c	\
 		src/run_exec.c			\

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Sun Apr 23 17:46:26 2017 Bender_Jr
+** Last update Mon Apr 24 23:46:04 2017 Bender_Jr
 */
 
 /*
@@ -58,10 +58,10 @@ int		x_exit(char **cmd, UNUSED void *ptr)
     {
       if (!my_stringisnum(cmd[1]))
 	return (p_printf(2, "%s: %s\n", cmd[0], SYNTX_ERR), 1);
-      else if ((g_rt = my_atoi(cmd[1])) >= 0 && g_rt <= 255)
-	return (g_rt);
+      else if ((g_exit = my_atoi(cmd[1])) >= 0 && g_rt <= 255)
+	return (g_exit = (g_exit == 0) ? 1 : g_exit);
     }
-  return (2);
+  return (g_exit = 1);
 }
 
 int		clear(UNUSED char **cmd, UNUSED void *ptr)

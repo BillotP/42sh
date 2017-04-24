@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 20:50:23 2017 Bender_Jr
-** Last update Sun Apr 23 18:52:15 2017 Bender_Jr
+** Last update Mon Apr 24 23:18:23 2017 Bender_Jr
 */
 
 #ifndef BASE_H_
@@ -17,8 +17,8 @@
 # include <unistd.h>
 
 /*
-** strtowortab, p_printf
-** and formating error msg
+** strtowortab, p_printf, f_printf
+** and formating macro error msg
 ** inclusion
 ** (for convenience that's bad I know that)
 **  Paul
@@ -26,6 +26,7 @@
 */
 # include "decl.h"
 # include "strtowordtab.h"
+# include "fprint.h"
 # include "printf.h"
 # include "errors.h"
 
@@ -79,6 +80,16 @@ int		xsetenv(char **cmd, void *ptr);
 void		free_env(t_environ *ptr);
 
 /*
+** src/env_ctrl/env_utils.c
+*/
+int		add_or_replace(t_environ *ptr, unsigned long var_sum);
+unsigned long	get_newvar(int argc, char **av, char *bfr);
+t_environ	*replace_lastnode(t_environ *ptr, char *fullvar);
+t_environ	*replace_firstnode(t_environ *ptr, char *fullvar);
+t_environ	*replace_middlenode(t_environ *ptr, char *fullvar,
+				    unsigned long var_sum);
+
+/*
 ** src/run_exec.c
 */
 int		clean_exit(t_shell *ptr);
@@ -89,7 +100,7 @@ int		run(t_shell *ptr);
 /*
 ** src/status/status_handler.c
 */
-void		get_status(struct s_status *ptr);
+void		get_status(struct s_status *ptr, int *status);
 int		check_status(pid_t son, int *stat_loc);
 /*
 ** lib/core/string*.c

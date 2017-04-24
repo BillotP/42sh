@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 09:40:19 2017 Bender_Jr
-** Last update Sun Apr 23 10:48:49 2017 Bender_Jr
+** Last update Mon Apr 24 17:45:06 2017 Bender_Jr
 */
 
 /*
@@ -40,15 +40,12 @@ t_environ		*init_environ(char **environ)
     return (NULL);
   i = 0;
   xmemset(new, '\0', sizeof(*new));
-  if (tab_len(environ))
-    new->environ = environ;
-  else
-    new->environ = NULL;
+  new->environ = environ;
   new->firstenvar = NULL;
   new->lastenvar = NULL;
-  while (i != tab_len(environ))
+  while (i != tab_len(new->environ))
     {
-      new = fill_env(new, environ[i]);
+      new = fill_env(new, new->environ[i]);
       i++;
     }
   return (new);
