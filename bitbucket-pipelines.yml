@@ -24,6 +24,6 @@ pipelines:
         script:
          - zypper -n update
          - zypper -n in -t pattern devel_C_C++
-         - zypper -n in tcsh
+         - zypper -n in tcsh curl
          - ./mouli.sh
          - curl -sSL https://download.sourceclear.com/ci.sh | sh
