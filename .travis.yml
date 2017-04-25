@@ -1,5 +1,7 @@
 language: c
-install:
-        - apt-get install -y tcsh
+
+before_install:
+        - sudo apt-get -qq update
+        - sudo apt-get install -y tcsh
 script:
         -./mouli.sh
