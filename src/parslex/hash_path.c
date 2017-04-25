@@ -5,13 +5,13 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sat Apr 22 13:45:32 2017 Bender_Jr
-** Last update Sun Apr 23 19:14:22 2017 Bender_Jr
+** Last update Tue Apr 25 12:54:27 2017 Bender_Jr
 */
 
 /*
 ** for scandir
 */
-# define _DEFAULT_SOURCE
+# define _GNU_SOURCE
 
 /*
 ** for scandir
