@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 18:48:58 2017 Bender_Jr
-** Last update Mon Apr 24 23:37:39 2017 Bender_Jr
+** Last update Tue Apr 25 10:26:19 2017 Bender_Jr
 */
 
 /*
@@ -44,7 +44,7 @@ int			check_status(pid_t son, int *stat_loc)
       if (WIFEXITED(*stat_loc))
 	{
 	  rt = WEXITSTATUS(*stat_loc);
-	  return (g_rt = rt);
+	  return (g_rt = (rt == 1) ? -1 : rt);
 	}
       else if (WIFSIGNALED(*stat_loc))
 	{

@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Tue Apr 18 17:32:51 2017 Bender_Jr
-** Last update Tue Apr 25 09:42:49 2017 Bender_Jr
+** Last update Tue Apr 25 11:24:21 2017 Bender_Jr
 */
 
 /*
@@ -37,11 +37,12 @@ int	echo(char **cmd, UNUSED void *ptr)
 
 int		cd(char **cmd, UNUSED void *ptr)
 {
-  char		oldpwd[PATH_MAX];
+  char		oldpath[PATH_MAX];
 
   if (tab_len(cmd) == 1)
     {
-      if (getcwd(oldpwd, PATH_MAX) == NULL ||
+      xmemset(oldpath, '\0', sizeof(oldpath));
+      if ((getcwd(oldpath, sizeof(oldpath))) == NULL ||
 	  (chdir(getenv("HOME"))) == -1)
 	return (-1);
       return (1);
@@ -50,12 +51,13 @@ int		cd(char **cmd, UNUSED void *ptr)
     {
       if (cmd[1][0] != '-')
 	{
-	  if ((getcwd(oldpwd, PATH_MAX) == NULL))
+	  xmemset(oldpath, '\0', sizeof(oldpath));
+	  if ((getcwd(oldpath, sizeof(oldpath))) == NULL)
 	    return (-1);
 	}
       else if (cmd[1][0] == '-' && !cmd[1][1])
-	return ((chdir(oldpwd) == -1) ? -1 : 1);
-      return ((chdir(cmd[1]) == -1) ? -1 : 1);
+	return ((chdir(oldpath) == -1) ? -1 : 1);
+      return (chdir(cmd[1]) == -1 ? -1 : 1);
     }
   return (-1);
 }

@@ -5,7 +5,7 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Sun Apr 23 07:40:51 2017 Bender_Jr
+## Last update Tue Apr 25 10:23:33 2017 Bender_Jr
 ##
 
 # clean option (use with ./mouli.sh -c)
@@ -32,8 +32,8 @@ logdir='logz'
 # test cmd array
 testcmd[0]="ls -l"
 testcmd[1]="ls -la"
-testcmd[2]="stty -a"
-testcmd[3]="ls"
+testcmd[2]="mkdir /bin/toto"
+testcmd[3]="ls toto"
 testcmd[4]="echo toto"
 testcmd[5]="cd .."
 testcmd[6]="pwd"
@@ -83,6 +83,34 @@ man_tcsh ()
     done
 }
 
+cd_test ()
+{
+    {
+	echo 'cd ..'
+	echo 'pwd'
+	echo 'cd -'
+	echo 'pwd'
+    } | ./$prog >> $logdir/toto.log 2>&1
+    {
+	echo 'cd ..'
+	echo 'pwd'
+	echo 'cd -'
+	echo 'pwd'
+    } | tcsh >> $logdir/tata.log 2>&1
+    {
+	echo 'cd /bin'
+	echo 'pwd'
+	echo 'cd -'
+	echo 'pwd'
+    } | ./$prog >> $logdir/toto.log 2>&1
+    {
+	echo 'cd /bin'
+	echo 'pwd'
+	echo 'cd -'
+	echo 'pwd'
+    } | tcsh >> $logdir/tata.log 2>&1
+}
+
 init_logtxt
 
 echo "      _______ _______ _     _ _______ _     _                        "
@@ -98,6 +126,7 @@ echo "                 **************************************              "
 
 test_prog
 man_tcsh
+cd_test
 
 if [ -f $logdir/logs.txt ]; then
     rm -f $logdir/logs.txt
