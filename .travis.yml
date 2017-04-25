@@ -4,5 +4,4 @@ addons:
   apt:
     packages:
       - tcsh
-script:
-        -./mouli.sh
+script: ./mouli.sh
