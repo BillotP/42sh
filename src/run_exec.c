@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Sun Apr 23 10:17:57 2017 Bender_Jr
-** Last update Tue Apr 25 00:07:42 2017 Bender_Jr
+** Last update Tue Apr 25 09:02:17 2017 Bender_Jr
 */
 
 /*
@@ -100,7 +100,7 @@ int		run(t_shell *ptr)
 	    else if (g_exit >= 1)
 	      return (free(tmp), clean_exit(ptr));
 	  }
-      g_rt = (g_rt == -1) ? 1 : g_rt;
+      g_rt = (g_rt == -1) ? 1 : g_rt == 1 ? 0 : g_rt;
       pr_printf(ptr->term.prompt_frmat);
       free(tmp);
     }
