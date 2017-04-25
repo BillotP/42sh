@@ -4,4 +4,6 @@ addons:
   apt:
     packages:
       - tcsh
+   code_climate:
+        repo_token: f15eb38857a8bb48031a257848d8e6085d6363c345880611bca29c87fc389798
 script: ./mouli.sh
