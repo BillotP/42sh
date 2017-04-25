@@ -5,7 +5,7 @@
 ** Login   <@epitech.eu>
 **
 ** Started on  Mon Apr 24 20:49:21 2017 Bender_Jr
-** Last update Mon Apr 24 21:09:04 2017 Bender_Jr
+** Last update Tue Apr 25 12:52:13 2017 Bender_Jr
 */
 
 # include "base.h"
@@ -24,7 +24,7 @@ int		flag_run(char c, fpr *tab, FILE *stream, va_list list)
   flag[0] = 's';
   flag[1] = 'd';
   i = 0;
-  while (flag[i])
+  while (i != 2)
     {
       if (c == flag[i])
 	return (tab[i](stream, list));
