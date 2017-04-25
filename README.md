@@ -39,6 +39,9 @@ Paul
 
 https://codeclimate.com/github/BillotP/42sh
 
+### travis CI ##
+[![Build Status](https://travis-ci.org/BillotP/42sh.svg?branch=master)](https://travis-ci.org/BillotP/42sh)
+
 ### What is this repository for? ###
 
 * Quick summary
