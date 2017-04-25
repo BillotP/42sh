@@ -2,7 +2,6 @@
    
 
 ```
-#!c
 
                                                
         ,--,                                 ,--, 
@@ -33,11 +32,17 @@ Bitbucket is just a  "simple git " repo but with cool interface
 Edit(20.04) : J'ai ajouté une base de travail pour les builtins, un ti pointeur sur fonction ! si vous voulez travailler sur des builtins (moi j'ai foutu cd et echo mais c'est de la merde pour le moment ) demandez moi !
  
 Paul
+## TEST COVERAGE (CodeClimate) ##
+### Analysis & Coverage ###
+
+![badge](https://codeclimate.com/github/BillotP/42sh.png)
+
+https://codeclimate.com/github/BillotP/42sh
+
 ### What is this repository for? ###
 
 * Quick summary
 * Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
