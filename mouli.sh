@@ -5,18 +5,18 @@
 ## Login   <@epitech.eu>
 ## 
 ## Started on  Sun Apr 16 23:06:06 2017 Bender_Jr
-## Last update Tue Apr 25 10:23:33 2017 Bender_Jr
+## Last update Tue Apr 25 12:44:36 2017 Bender_Jr
 ##
 
 # clean option (use with ./mouli.sh -c)
 # will later be expand to handle more test
 # like the builtins ones, scripting etc
-clean='-c'
-if [ "$@" = "$clean" ]
-then
-    make fclean && rm -rf logz
-    exit 0
-fi
+#clean='-c'
+#if [ "$@" = "$clean" ]
+#then
+#    make fclean && rm -rf logz
+#    exit 0
+#fi
 # color output variable
 red='\033[31m'
 green='\033[32m'
