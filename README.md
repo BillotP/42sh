@@ -26,12 +26,9 @@
 Hello world this is the official working repo for the 42 sh 
 project (working repo the official one will be filled when we
 got a working master here).
-
-Bitbucket is just a  "simple git " repo but with cool interface
-
-Edit(20.04) : J'ai ajouté une base de travail pour les builtins, un ti pointeur sur fonction ! si vous voulez travailler sur des builtins (moi j'ai foutu cd et echo mais c'est de la merde pour le moment ) demandez moi !
  
 Paul
+
 ## TEST COVERAGE (CodeClimate) ##
 ### Analysis & Coverage ###
 
