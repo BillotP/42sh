@@ -12,20 +12,20 @@
 
 int			main()
 {
-  t_shell		ta_mere;
+  t_shell		shell;
   extern char		**environ;
 
-  ta_mere.term.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
-  fill_builtins(&(ta_mere).blts);
+  shell.term.prompt_frmat = "\033[0m%U@%H \033[1m%~\033[0m >> ";
+  fill_builtins(&(shell).blts);
   if (!tab_len(environ))
     environ = strto_wordtab(SH_ENV, ",");
-  ta_mere.environ = environ;
-  if ((ta_mere.envlist = init_environ(environ)) == NULL ||
-      (ta_mere.history = init_history()) == NULL ||
-      (g_rt = init_term(&(ta_mere).term)) == -1 ||
-      (ta_mere.pathlist = init_paths("/bin:/usr/bin")) == NULL ||
-      (ta_mere.pathlist = fill_path(ta_mere.pathlist)) == NULL)
+  shell.environ = environ;
+  if ((shell.envlist = init_environ(environ)) == NULL ||
+      (shell.history = init_history()) == NULL ||
+      (g_rt = init_term(&(shell).term)) == -1 ||
+      (shell.pathlist = init_paths("/bin:/usr/bin")) == NULL ||
+      (shell.pathlist = fill_path(shell.pathlist)) == NULL)
     return (1);
-  run(&ta_mere);
+  run(&shell);
   return (g_rt);
 }
